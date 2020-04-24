@@ -82,7 +82,9 @@ WORKDIR /
 RUN git clone https://github.com/baidu-research/warp-ctc.git
 WORKDIR warp-ctc/build
 RUN Torch_DIR=/opt/conda/envs/danspeech/lib/python3.8/site-packages/torch/share/cmake/Torch/ cmake ../
-RUN make
+
+# XXX Commented out, since the next line will crash the build.
+# RUN make
 
 # # Install CTC decode
 # RUN git clone --recursive https://github.com/parlance/ctcdecode.git
