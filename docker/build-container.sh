@@ -5,7 +5,7 @@
 #                                                                                                                                                        
 
 WHOAMI=$(whoami)
-CONTAINERNAME=danspeech10.2
+CONTAINERNAME=danspeech-cuda10.1
 TAGNAME="$WHOAMI/$CONTAINERNAME"
 
 
