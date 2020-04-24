@@ -49,7 +49,7 @@ RUN apt-get install -y emacs less
 
 # # Install Anaconda
 WORKDIR /tmp
-RUN curl -O https://repo.anaconda.com/archive/Anaconda3-2020.03-Linux-x86_64.sh
+RUN curl -O https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
 RUN  (echo ; echo "yes"; echo; echo "yes"; echo ; echo )  | bash Anaconda3-2020.02-Linux-x86_64.sh
 RUN conda update -n base -c defaults conda
 
