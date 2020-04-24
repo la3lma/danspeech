@@ -74,8 +74,8 @@ RUN conda install pytorch torchvision -c pytorch
 # # RUN pip install danspeech
 
 # # Alternatively: Install from fresh source
-# RUN git clone https://github.com/danspeech/danspeech
-# RUN cd danspeech &&   pip install .
+RUN git clone https://github.com/danspeech/danspeech
+RUN cd danspeech &&   pip install .
 
 # Install warpctc
 WORKDIR /
