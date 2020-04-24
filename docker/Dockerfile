@@ -65,12 +65,10 @@ WORKDIR warp-ctc/build
 ######   debugging under way
 ###### 
 
-
-# This fails, so we won't do this now
-# RUN Torch_DIR=/opt/conda/envs/danspeech/lib/python3.8/site-packages/torch/share/cmake/Torch/ cmake ../
+RUN Torch_DIR=/opt/conda/envs/danspeech/lib/python3.8/site-packages/torch/share/cmake/Torch/ cmake ../
 
 # XXX Commented out, since the next line will crash the build.
-# RUN make
+RUN make
 
 # # Install CTC decode
 # RUN git clone --recursive https://github.com/parlance/ctcdecode.git
