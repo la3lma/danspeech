@@ -14,8 +14,8 @@ RUN apt-get install -y git curl ca-certificates bzip2 cmake tree htop bmon iotop
 ##
 
 # Pre-installation actions
-RUN apt-get install -y linux-headers-$(uname -r)
-RUN apt-get install wget
+# RUN apt-get install -y linux-headers-$(uname -r)
+# RUN apt-get install wget
 
 ## Getting the cuda 10.2
 
