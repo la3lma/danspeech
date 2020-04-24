@@ -99,7 +99,7 @@ dependencies:
   - zlib=1.2.11=h7b6447c_3
   - zstd=1.3.7=h0b5b093_0
   - pip:
-    - apex==0.1
+    - apex==0.9.10dev
     - cffi==1.14.0
     - cython==0.29.15
     - llvmlite==0.31.0
@@ -111,4 +111,4 @@ dependencies:
     - specaugment==1.2.5
     - tensorboardx==2.0
     - tqdm==4.43.0
-    - warpctc-pytorch==0.1
+#    - warpctc-pytorch==0.1
