@@ -7,8 +7,6 @@ WORKDIR /workspace/
 RUN apt-get update -y
 RUN apt-get install -y git curl ca-certificates bzip2 cmake tree htop bmon iotop sox libsox-dev libsox-fmt-all vim
 
-
-
 # Just for monkeying around inside the container,
 # remove for production use
 RUN apt-get install -y emacs less
@@ -16,18 +14,23 @@ RUN apt-get install -y emacs less
 
 # Install Anaconda
 WORKDIR /tmp
-#RUN curl -O https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
 RUN curl -O https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
-# RUN [ $(sha256sum Anaconda3-2019.03-Linux-x86_64.sh) = "45c851b7497cc14d5ca060064394569f724b67d9b5f98a926ed49b834a6bb73a" ] || exit 1
 RUN  (echo ; echo "yes"; echo; echo "yes"; echo ; echo )  | bash Anaconda3-2020.02-Linux-x86_64.sh
 RUN conda update -n base -c defaults conda
 
 # # Set up conda environment
 COPY danspeech.yml .
-RUN conda env create -f danspeech.yml
-RUN conda activate danspeech
+RUN conda env create -n danspeech -f danspeech.yml
+RUN conda config --append envs_dirs /opt/conda/envs
 
-# SHELL ["conda", "run", "-n", "myenv", "/bin/bash", "-c"]
+WORKDIR /
+RUN git clone https://github.com/danspeech/danspeech
+RUN git clone https://github.com/danspeech/danspeech_training
+RUN git clone https://github.com/SeanNaren/deepspeech.pytorch
+# RUN conda activate danspeech (using trick from here https://pythonspeed.com/articles/activate-conda-dockerfile/)
+SHELL ["conda", "run", "-n", "danspeech", "/bin/bash", "-c"]
+
+
 
 # install python deps
 # RUN pip install danspeech
