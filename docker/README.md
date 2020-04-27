@@ -188,9 +188,8 @@ line. I then got this result:
        See also "/warp-ctc/build/CMakeFiles/CMakeError.log".
 
 
-1. The content of CMakeError.log
+## The content of CMakeError.log
 
-... and /warp-ctc/build/CMakeFiles/CMakeError.log:
 
      Determining if the pthread_create exist failed with the following output:
      Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
