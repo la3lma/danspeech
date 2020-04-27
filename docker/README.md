@@ -16,72 +16,72 @@ How to reproduce:
        rmz@loke:~/git/danspeech/docker$ ./build-container.sh 
        Sending build context to Docker daemon  35.33kB
        Step 1/24 : FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
-	---> 059dca74c93c
+        ---> 059dca74c93c
        Step 2/24 : ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-	---> Using cache
-	---> 0f475e808411
+        ---> Using cache
+        ---> 0f475e808411
        Step 3/24 : WORKDIR /workspace/
-	---> Using cache
-	---> bd9036d92d76
+        ---> Using cache
+        ---> bd9036d92d76
        Step 4/24 : RUN apt-get update -y
-	---> Using cache
-	---> c1ca9389f5fe
+        ---> Using cache
+        ---> c1ca9389f5fe
        Step 5/24 : RUN apt-get install -y git curl ca-certificates bzip2 cmake tree htop bmon iotop sox libsox-dev libsox-fmt-all vim
-	---> Using cache
-	---> f89022d9370d
+        ---> Using cache
+        ---> f89022d9370d
        Step 6/24 : RUN apt-get install -y emacs less
-	---> Using cache
-	---> e33806b504c6
+        ---> Using cache
+        ---> e33806b504c6
        Step 7/24 : WORKDIR /tmp
-	---> Using cache
-	---> 93cb81304d7c
+        ---> Using cache
+        ---> 93cb81304d7c
        Step 8/24 : RUN curl -O https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
-	---> Using cache
-	---> 6dc851dc2c34
+        ---> Using cache
+        ---> 6dc851dc2c34
        Step 9/24 : RUN  (echo ; echo "yes"; echo; echo "yes"; echo ; echo )  | bash Anaconda3-2020.02-Linux-x86_64.sh
-	---> Using cache
-	---> 3d8e07b6e522
+        ---> Using cache
+        ---> 3d8e07b6e522
        Step 10/24 : RUN conda update -n base -c defaults conda
-	---> Using cache
-	---> 00c564d8083f
+        ---> Using cache
+        ---> 00c564d8083f
        Step 11/24 : COPY danspeech.yml .
-	---> Using cache
-	---> 3f7fee8aa401
+        ---> Using cache
+        ---> 3f7fee8aa401
        Step 12/24 : RUN conda env create -n danspeech -f danspeech.yml
-	---> Using cache
-	---> 3b9384f9ed26
+        ---> Using cache
+        ---> 3b9384f9ed26
        Step 13/24 : RUN conda config --append envs_dirs /opt/conda/envs
-	---> Using cache
-	---> 81ff13a59238
+        ---> Using cache
+        ---> 81ff13a59238
        Step 14/24 : SHELL ["conda", "run", "-n", "danspeech", "/bin/bash", "-c"]
-	---> Using cache
-	---> ae01a8ae2727
+        ---> Using cache
+        ---> ae01a8ae2727
        Step 15/24 : RUN conda install pytorch torchvision -c pytorch
-	---> Using cache
-	---> 04138121cda8
+        ---> Using cache
+        ---> 04138121cda8
        Step 16/24 : WORKDIR /
-	---> Using cache
-	---> 2723bf6109a5
+        ---> Using cache
+        ---> 2723bf6109a5
        Step 17/24 : RUN git clone https://github.com/danspeech/danspeech
-	---> Using cache
-	---> 36de4a5eea6f
+        ---> Using cache
+        ---> 36de4a5eea6f
        Step 18/24 : RUN cd danspeech &&   pip install .
-	---> Using cache
-	---> 7ccada11fc0d
+        ---> Using cache
+        ---> 7ccada11fc0d
        Step 19/24 : WORKDIR /
-	---> Using cache
-	---> d5f0239a3d35
+        ---> Using cache
+        ---> d5f0239a3d35
        Step 20/24 : RUN git clone https://github.com/baidu-research/warp-ctc.git
-	---> Using cache
-	---> b06dffcbe27e
+        ---> Using cache
+        ---> b06dffcbe27e
        Step 21/24 : WORKDIR warp-ctc/build
-	---> Using cache
-	---> fbc90a3b8c92
+        ---> Using cache
+        ---> fbc90a3b8c92
        Step 22/24 : RUN Torch_DIR=/opt/conda/envs/danspeech/lib/python3.8/site-packages/torch/share/cmake/Torch/  cmake ../
-	---> Running in 0a6a5b05429a
+        ---> Running in 0a6a5b05429a
        ERROR conda.cli.main_run:execute(32): Subprocess for 'conda run ['/bin/bash', '-c', 'Torch_DIR=/opt/conda/envs/danspeech/lib/python3.8/site-packages/torch/share/cmake/Torch/  cmake ../']' command failed.  (See above for error)
        CMake Error at CMakeLists.txt:177 (ADD_TORCH_PACKAGE):
-	 Unknown CMake command "ADD_TORCH_PACKAGE".
+         Unknown CMake command "ADD_TORCH_PACKAGE".
 
 
 
@@ -130,20 +130,20 @@ How to reproduce:
        See also "/warp-ctc/build/CMakeFiles/CMakeError.log".
 
        Removing intermediate container 0a6a5b05429a
-	---> 4642dbd1b911
+        ---> 4642dbd1b911
        Step 23/24 : RUN pwd
-	---> Running in df0707b6d9d8
+        ---> Running in df0707b6d9d8
        /warp-ctc/build
 
        Removing intermediate container df0707b6d9d8
-	---> 0852000279ca
+        ---> 0852000279ca
        Step 24/24 : RUN make
-	---> Running in faadbde69c14
+        ---> Running in faadbde69c14
        ERROR conda.cli.main_run:execute(32): Subprocess for 'conda run ['/bin/bash', '-c', 'make']' command failed.  (See above for error)
        make: *** No targets specified and no makefile found.  Stop.
 
        Removing intermediate container faadbde69c14
-	---> 627d11f2f559
+        ---> 627d11f2f559
        Successfully built 627d11f2f559
        Successfully tagged rmz/danspeech-cuda10.1:latest
        rmz@loke:~/git/danspeech/docker$ 
@@ -171,12 +171,12 @@ How to reproduce:
        -- NVCC_ARCH_FLAGS-DONNX_NAMESPACE=onnx_c2-gencodearch=compute_35,code=sm_35-gencodearch=compute_50,code=sm_50-gencodearch=compute_52,code=sm_52-gencodearch=compute_60,code=sm_60-gencodearch=compute_61,code=sm_61-gencodearch=compute_70,code=sm_70-gencodearch=compute_75,code=sm_75-gencodearch=compute_70,code=compute_70-gencodearch=compute_75,code=compute_75-Xcudafe--diag_suppress=cc_clobber_ignored-Xcudafe--diag_suppress=integer_sign_change-Xcudafe--diag_suppress=useless_using_declaration-Xcudafe--diag_suppress=set_but_not_used-std=c++14-Xcompiler-fPIC--expt-relaxed-constexpr--expt-extended-lambda -O2 -gencode arch=compute_30,code=sm_30 -gencode arch=compute_35,code=sm_35 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_52,code=sm_52 -gencode arch=compute_60,code=sm_60 -gencode arch=compute_61,code=sm_61 -gencode arch=compute_62,code=sm_62 -gencode arch=compute_70,code=sm_70 --std=c++11 -Xcompiler -fopenmp
        -- Building Torch Bindings with GPU support
        CMake Error at CMakeLists.txt:169 (INSTALL):
-	 INSTALL TARGETS given no LIBRARY DESTINATION for shared library target
-	 "warpctc".
+         INSTALL TARGETS given no LIBRARY DESTINATION for shared library target
+         "warpctc".
 
 
        CMake Error at CMakeLists.txt:177 (ADD_TORCH_PACKAGE):
-	 Unknown CMake command "ADD_TORCH_PACKAGE".
+         Unknown CMake command "ADD_TORCH_PACKAGE".
 
 
        -- Configuring incomplete, errors occurred!
@@ -246,28 +246,28 @@ How to reproduce:
        Thread model: posix
        gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) 
        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
-	/usr/lib/gcc/x86_64-linux-gnu/7/cc1 -quiet -v -imultiarch x86_64-linux-gnu /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/cclVlrU2.s
+        /usr/lib/gcc/x86_64-linux-gnu/7/cc1 -quiet -v -imultiarch x86_64-linux-gnu /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/cclVlrU2.s
        GNU C11 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)
-	       compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
+               compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
 
        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
        ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"
        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/include"
        #include "..." search starts here:
        #include <...> search starts here:
-	/usr/lib/gcc/x86_64-linux-gnu/7/include
-	/usr/local/include
-	/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed
-	/usr/include/x86_64-linux-gnu
-	/usr/include
+        /usr/lib/gcc/x86_64-linux-gnu/7/include
+        /usr/local/include
+        /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed
+        /usr/include/x86_64-linux-gnu
+        /usr/include
        End of search list.
        GNU C11 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)
-	       compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
+               compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
 
        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
        Compiler executable checksum: fa57db1fe2d756b22d454aa8428fd3bd
        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
-	as -v --64 -o CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o /tmp/cclVlrU2.s
+        as -v --64 -o CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o /tmp/cclVlrU2.s
        GNU assembler version 2.30 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30
        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
@@ -287,146 +287,146 @@ How to reproduce:
        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_50ac5' '-mtune=generic' '-march=x86-64'
-	/usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7gUhM8.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_50ac5 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+        /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7gUhM8.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_50ac5 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_50ac5' '-mtune=generic' '-march=x86-64'
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
        Parsed C implicit include dir info from above output: rv=done
-	 found start of include info
-	 found start of implicit include info
-	   add: [/usr/lib/gcc/x86_64-linux-gnu/7/include]
-	   add: [/usr/local/include]
-	   add: [/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
-	   add: [/usr/include/x86_64-linux-gnu]
-	   add: [/usr/include]
-	 end of search list found
-	 implicit include dirs: [/usr/lib/gcc/x86_64-linux-gnu/7/include;/usr/local/include;/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed;/usr/include/x86_64-linux-gnu;/usr/include]
+         found start of include info
+         found start of implicit include info
+           add: [/usr/lib/gcc/x86_64-linux-gnu/7/include]
+           add: [/usr/local/include]
+           add: [/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
+           add: [/usr/include/x86_64-linux-gnu]
+           add: [/usr/include]
+         end of search list found
+         implicit include dirs: [/usr/lib/gcc/x86_64-linux-gnu/7/include;/usr/local/include;/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed;/usr/include/x86_64-linux-gnu;/usr/include]
 
 
        Parsed C implicit link information from above output:
-	 link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-	 ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
-	 ignore line: []
-	 ignore line: [Run Build Command(s):/usr/bin/make cmTC_50ac5/fast ]
-	 ignore line: [/usr/bin/make -f CMakeFiles/cmTC_50ac5.dir/build.make CMakeFiles/cmTC_50ac5.dir/build]
-	 ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
-	 ignore line: [Building C object CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o]
-	 ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o   -c /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCCompilerABI.c]
-	 ignore line: [Using built-in specs.]
-	 ignore line: [COLLECT_GCC=/usr/bin/cc]
-	 ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-	 ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-	 ignore line: [Target: x86_64-linux-gnu]
-	 ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
-	 ignore line: [Thread model: posix]
-	 ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
-	 ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/cc1 -quiet -v -imultiarch x86_64-linux-gnu /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/cclVlrU2.s]
-	 ignore line: [GNU C11 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
-	 ignore line: [	compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
-	 ignore line: []
-	 ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-	 ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
-	 ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/include"]
-	 ignore line: [#include "..." search starts here:]
-	 ignore line: [#include <...> search starts here:]
-	 ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include]
-	 ignore line: [ /usr/local/include]
-	 ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
-	 ignore line: [ /usr/include/x86_64-linux-gnu]
-	 ignore line: [ /usr/include]
-	 ignore line: [End of search list.]
-	 ignore line: [GNU C11 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
-	 ignore line: [	compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
-	 ignore line: []
-	 ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-	 ignore line: [Compiler executable checksum: fa57db1fe2d756b22d454aa8428fd3bd]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
-	 ignore line: [ as -v --64 -o CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o /tmp/cclVlrU2.s]
-	 ignore line: [GNU assembler version 2.30 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30]
-	 ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-	 ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
-	 ignore line: [Linking C executable cmTC_50ac5]
-	 ignore line: [/opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_50ac5.dir/link.txt --verbose=1]
-	 ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o  -o cmTC_50ac5 ]
-	 ignore line: [Using built-in specs.]
-	 ignore line: [COLLECT_GCC=/usr/bin/cc]
-	 ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
-	 ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-	 ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-	 ignore line: [Target: x86_64-linux-gnu]
-	 ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
-	 ignore line: [Thread model: posix]
-	 ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
-	 ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-	 ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_50ac5' '-mtune=generic' '-march=x86-64']
-	 link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7gUhM8.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_50ac5 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
-	   arg [-plugin] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
-	   arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-	   arg [-plugin-opt=-fresolution=/tmp/cc7gUhM8.res] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [--sysroot=/] ==> ignore
-	   arg [--build-id] ==> ignore
-	   arg [--eh-frame-hdr] ==> ignore
-	   arg [-m] ==> ignore
-	   arg [elf_x86_64] ==> ignore
-	   arg [--hash-style=gnu] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-export-dynamic] ==> ignore
-	   arg [-dynamic-linker] ==> ignore
-	   arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
-	   arg [-pie] ==> ignore
-	   arg [-znow] ==> ignore
-	   arg [-zrelro] ==> ignore
-	   arg [-o] ==> ignore
-	   arg [cmTC_50ac5] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
-	   arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
-	   arg [-L/lib/../lib] ==> dir [/lib/../lib]
-	   arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
-	   arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-	   arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-	   arg [CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o] ==> ignore
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [--push-state] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [--pop-state] ==> ignore
-	   arg [-lc] ==> lib [c]
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [--push-state] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [--pop-state] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
-	 collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
-	 collapse library dir [/lib/../lib] ==> [/lib]
-	 collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-	 collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
-	 implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
-	 implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
-	 implicit fwks: []
+         link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+         ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
+         ignore line: []
+         ignore line: [Run Build Command(s):/usr/bin/make cmTC_50ac5/fast ]
+         ignore line: [/usr/bin/make -f CMakeFiles/cmTC_50ac5.dir/build.make CMakeFiles/cmTC_50ac5.dir/build]
+         ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
+         ignore line: [Building C object CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o]
+         ignore line: [/usr/bin/cc   -v -o CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o   -c /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCCompilerABI.c]
+         ignore line: [Using built-in specs.]
+         ignore line: [COLLECT_GCC=/usr/bin/cc]
+         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+         ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+         ignore line: [Target: x86_64-linux-gnu]
+         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+         ignore line: [Thread model: posix]
+         ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+         ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/cc1 -quiet -v -imultiarch x86_64-linux-gnu /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/cclVlrU2.s]
+         ignore line: [GNU C11 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
+         ignore line: [ compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
+         ignore line: []
+         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+         ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
+         ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/include"]
+         ignore line: [#include "..." search starts here:]
+         ignore line: [#include <...> search starts here:]
+         ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include]
+         ignore line: [ /usr/local/include]
+         ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
+         ignore line: [ /usr/include/x86_64-linux-gnu]
+         ignore line: [ /usr/include]
+         ignore line: [End of search list.]
+         ignore line: [GNU C11 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
+         ignore line: [ compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
+         ignore line: []
+         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+         ignore line: [Compiler executable checksum: fa57db1fe2d756b22d454aa8428fd3bd]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+         ignore line: [ as -v --64 -o CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o /tmp/cclVlrU2.s]
+         ignore line: [GNU assembler version 2.30 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30]
+         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
+         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+         ignore line: [Linking C executable cmTC_50ac5]
+         ignore line: [/opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_50ac5.dir/link.txt --verbose=1]
+         ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o  -o cmTC_50ac5 ]
+         ignore line: [Using built-in specs.]
+         ignore line: [COLLECT_GCC=/usr/bin/cc]
+         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
+         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+         ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+         ignore line: [Target: x86_64-linux-gnu]
+         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+         ignore line: [Thread model: posix]
+         ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
+         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
+         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_50ac5' '-mtune=generic' '-march=x86-64']
+         link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7gUhM8.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_50ac5 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
+           arg [-plugin] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
+           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
+           arg [-plugin-opt=-fresolution=/tmp/cc7gUhM8.res] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [-plugin-opt=-pass-through=-lc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [--sysroot=/] ==> ignore
+           arg [--build-id] ==> ignore
+           arg [--eh-frame-hdr] ==> ignore
+           arg [-m] ==> ignore
+           arg [elf_x86_64] ==> ignore
+           arg [--hash-style=gnu] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-export-dynamic] ==> ignore
+           arg [-dynamic-linker] ==> ignore
+           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+           arg [-pie] ==> ignore
+           arg [-znow] ==> ignore
+           arg [-zrelro] ==> ignore
+           arg [-o] ==> ignore
+           arg [cmTC_50ac5] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
+           arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+           arg [-L/lib/../lib] ==> dir [/lib/../lib]
+           arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+           arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
+           arg [CMakeFiles/cmTC_50ac5.dir/CMakeCCompilerABI.c.o] ==> ignore
+           arg [-lgcc] ==> lib [gcc]
+           arg [--push-state] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [--pop-state] ==> ignore
+           arg [-lc] ==> lib [c]
+           arg [-lgcc] ==> lib [gcc]
+           arg [--push-state] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [--pop-state] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
+         collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+         collapse library dir [/lib/../lib] ==> [/lib]
+         collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+         collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
+         implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+         implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
+         implicit fwks: []
 
 
 
@@ -445,10 +445,10 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: C_FEATURE:1c_function_prototypes
-	   Feature record: C_FEATURE:1c_restrict
-	   Feature record: C_FEATURE:1c_static_assert
-	   Feature record: C_FEATURE:1c_variadic_macros
+           Feature record: C_FEATURE:1c_function_prototypes
+           Feature record: C_FEATURE:1c_restrict
+           Feature record: C_FEATURE:1c_static_assert
+           Feature record: C_FEATURE:1c_variadic_macros
 
 
        Detecting C [-std=c99] compiler features compiled with the following output:
@@ -465,10 +465,10 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: C_FEATURE:1c_function_prototypes
-	   Feature record: C_FEATURE:1c_restrict
-	   Feature record: C_FEATURE:0c_static_assert
-	   Feature record: C_FEATURE:1c_variadic_macros
+           Feature record: C_FEATURE:1c_function_prototypes
+           Feature record: C_FEATURE:1c_restrict
+           Feature record: C_FEATURE:0c_static_assert
+           Feature record: C_FEATURE:1c_variadic_macros
 
 
        Detecting C [-std=c90] compiler features compiled with the following output:
@@ -485,10 +485,10 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: C_FEATURE:1c_function_prototypes
-	   Feature record: C_FEATURE:0c_restrict
-	   Feature record: C_FEATURE:0c_static_assert
-	   Feature record: C_FEATURE:0c_variadic_macros
+           Feature record: C_FEATURE:1c_function_prototypes
+           Feature record: C_FEATURE:0c_restrict
+           Feature record: C_FEATURE:0c_static_assert
+           Feature record: C_FEATURE:0c_variadic_macros
        Determining if the CXX compiler works passed with the following output:
        Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
 
@@ -520,9 +520,9 @@ How to reproduce:
        Thread model: posix
        gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) 
        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-	/usr/lib/gcc/x86_64-linux-gnu/7/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccZGYNZB.s
+        /usr/lib/gcc/x86_64-linux-gnu/7/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccZGYNZB.s
        GNU C++14 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)
-	       compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
+               compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
 
        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
        ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/7"
@@ -530,22 +530,22 @@ How to reproduce:
        ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/include"
        #include "..." search starts here:
        #include <...> search starts here:
-	/usr/include/c++/7
-	/usr/include/x86_64-linux-gnu/c++/7
-	/usr/include/c++/7/backward
-	/usr/lib/gcc/x86_64-linux-gnu/7/include
-	/usr/local/include
-	/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed
-	/usr/include/x86_64-linux-gnu
-	/usr/include
+        /usr/include/c++/7
+        /usr/include/x86_64-linux-gnu/c++/7
+        /usr/include/c++/7/backward
+        /usr/lib/gcc/x86_64-linux-gnu/7/include
+        /usr/local/include
+        /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed
+        /usr/include/x86_64-linux-gnu
+        /usr/include
        End of search list.
        GNU C++14 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)
-	       compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
+               compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP
 
        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
        Compiler executable checksum: 38816e3807cdcb3c59571e251bd6c090
        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-	as -v --64 -o CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZGYNZB.s
+        as -v --64 -o CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZGYNZB.s
        GNU assembler version 2.30 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30
        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
@@ -565,149 +565,149 @@ How to reproduce:
        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9fd31' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-	/usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdLBfXI.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9fd31 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+        /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdLBfXI.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9fd31 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9fd31' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
        Parsed CXX implicit include dir info from above output: rv=done
-	 found start of include info
-	 found start of implicit include info
-	   add: [/usr/include/c++/7]
-	   add: [/usr/include/x86_64-linux-gnu/c++/7]
-	   add: [/usr/include/c++/7/backward]
-	   add: [/usr/lib/gcc/x86_64-linux-gnu/7/include]
-	   add: [/usr/local/include]
-	   add: [/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
-	   add: [/usr/include/x86_64-linux-gnu]
-	   add: [/usr/include]
-	 end of search list found
-	 implicit include dirs: [/usr/include/c++/7;/usr/include/x86_64-linux-gnu/c++/7;/usr/include/c++/7/backward;/usr/lib/gcc/x86_64-linux-gnu/7/include;/usr/local/include;/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed;/usr/include/x86_64-linux-gnu;/usr/include]
+         found start of include info
+         found start of implicit include info
+           add: [/usr/include/c++/7]
+           add: [/usr/include/x86_64-linux-gnu/c++/7]
+           add: [/usr/include/c++/7/backward]
+           add: [/usr/lib/gcc/x86_64-linux-gnu/7/include]
+           add: [/usr/local/include]
+           add: [/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
+           add: [/usr/include/x86_64-linux-gnu]
+           add: [/usr/include]
+         end of search list found
+         implicit include dirs: [/usr/include/c++/7;/usr/include/x86_64-linux-gnu/c++/7;/usr/include/c++/7/backward;/usr/lib/gcc/x86_64-linux-gnu/7/include;/usr/local/include;/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed;/usr/include/x86_64-linux-gnu;/usr/include]
 
 
        Parsed CXX implicit link information from above output:
-	 link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-	 ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
-	 ignore line: []
-	 ignore line: [Run Build Command(s):/usr/bin/make cmTC_9fd31/fast ]
-	 ignore line: [/usr/bin/make -f CMakeFiles/cmTC_9fd31.dir/build.make CMakeFiles/cmTC_9fd31.dir/build]
-	 ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
-	 ignore line: [Building CXX object CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o]
-	 ignore line: [/usr/bin/c++    -v -o CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -c /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCXXCompilerABI.cpp]
-	 ignore line: [Using built-in specs.]
-	 ignore line: [COLLECT_GCC=/usr/bin/c++]
-	 ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-	 ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-	 ignore line: [Target: x86_64-linux-gnu]
-	 ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
-	 ignore line: [Thread model: posix]
-	 ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-	 ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccZGYNZB.s]
-	 ignore line: [GNU C++14 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
-	 ignore line: [	compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
-	 ignore line: []
-	 ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-	 ignore line: [ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/7"]
-	 ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
-	 ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/include"]
-	 ignore line: [#include "..." search starts here:]
-	 ignore line: [#include <...> search starts here:]
-	 ignore line: [ /usr/include/c++/7]
-	 ignore line: [ /usr/include/x86_64-linux-gnu/c++/7]
-	 ignore line: [ /usr/include/c++/7/backward]
-	 ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include]
-	 ignore line: [ /usr/local/include]
-	 ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
-	 ignore line: [ /usr/include/x86_64-linux-gnu]
-	 ignore line: [ /usr/include]
-	 ignore line: [End of search list.]
-	 ignore line: [GNU C++14 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
-	 ignore line: [	compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
-	 ignore line: []
-	 ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-	 ignore line: [Compiler executable checksum: 38816e3807cdcb3c59571e251bd6c090]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-	 ignore line: [ as -v --64 -o CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZGYNZB.s]
-	 ignore line: [GNU assembler version 2.30 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30]
-	 ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-	 ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-	 ignore line: [Linking CXX executable cmTC_9fd31]
-	 ignore line: [/opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9fd31.dir/link.txt --verbose=1]
-	 ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9fd31 ]
-	 ignore line: [Using built-in specs.]
-	 ignore line: [COLLECT_GCC=/usr/bin/c++]
-	 ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
-	 ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-	 ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-	 ignore line: [Target: x86_64-linux-gnu]
-	 ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
-	 ignore line: [Thread model: posix]
-	 ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
-	 ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-	 ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9fd31' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-	 link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdLBfXI.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9fd31 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
-	   arg [-plugin] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
-	   arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-	   arg [-plugin-opt=-fresolution=/tmp/ccdLBfXI.res] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [--sysroot=/] ==> ignore
-	   arg [--build-id] ==> ignore
-	   arg [--eh-frame-hdr] ==> ignore
-	   arg [-m] ==> ignore
-	   arg [elf_x86_64] ==> ignore
-	   arg [--hash-style=gnu] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-export-dynamic] ==> ignore
-	   arg [-dynamic-linker] ==> ignore
-	   arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
-	   arg [-pie] ==> ignore
-	   arg [-znow] ==> ignore
-	   arg [-zrelro] ==> ignore
-	   arg [-o] ==> ignore
-	   arg [cmTC_9fd31] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
-	   arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
-	   arg [-L/lib/../lib] ==> dir [/lib/../lib]
-	   arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
-	   arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-	   arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-	   arg [CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
-	   arg [-lstdc++] ==> lib [stdc++]
-	   arg [-lm] ==> lib [m]
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [-lc] ==> lib [c]
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
-	 collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
-	 collapse library dir [/lib/../lib] ==> [/lib]
-	 collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-	 collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
-	 implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
-	 implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
-	 implicit fwks: []
+         link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+         ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
+         ignore line: []
+         ignore line: [Run Build Command(s):/usr/bin/make cmTC_9fd31/fast ]
+         ignore line: [/usr/bin/make -f CMakeFiles/cmTC_9fd31.dir/build.make CMakeFiles/cmTC_9fd31.dir/build]
+         ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
+         ignore line: [Building CXX object CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o]
+         ignore line: [/usr/bin/c++    -v -o CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -c /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCXXCompilerABI.cpp]
+         ignore line: [Using built-in specs.]
+         ignore line: [COLLECT_GCC=/usr/bin/c++]
+         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+         ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+         ignore line: [Target: x86_64-linux-gnu]
+         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+         ignore line: [Thread model: posix]
+         ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+         ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/cc1plus -quiet -v -imultiarch x86_64-linux-gnu -D_GNU_SOURCE /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -version -fstack-protector-strong -Wformat -Wformat-security -o /tmp/ccZGYNZB.s]
+         ignore line: [GNU C++14 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
+         ignore line: [ compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
+         ignore line: []
+         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+         ignore line: [ignoring duplicate directory "/usr/include/x86_64-linux-gnu/c++/7"]
+         ignore line: [ignoring nonexistent directory "/usr/local/include/x86_64-linux-gnu"]
+         ignore line: [ignoring nonexistent directory "/usr/lib/gcc/x86_64-linux-gnu/7/../../../../x86_64-linux-gnu/include"]
+         ignore line: [#include "..." search starts here:]
+         ignore line: [#include <...> search starts here:]
+         ignore line: [ /usr/include/c++/7]
+         ignore line: [ /usr/include/x86_64-linux-gnu/c++/7]
+         ignore line: [ /usr/include/c++/7/backward]
+         ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include]
+         ignore line: [ /usr/local/include]
+         ignore line: [ /usr/lib/gcc/x86_64-linux-gnu/7/include-fixed]
+         ignore line: [ /usr/include/x86_64-linux-gnu]
+         ignore line: [ /usr/include]
+         ignore line: [End of search list.]
+         ignore line: [GNU C++14 (Ubuntu 7.4.0-1ubuntu1~18.04.1) version 7.4.0 (x86_64-linux-gnu)]
+         ignore line: [ compiled by GNU C version 7.4.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version isl-0.19-GMP]
+         ignore line: []
+         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+         ignore line: [Compiler executable checksum: 38816e3807cdcb3c59571e251bd6c090]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+         ignore line: [ as -v --64 -o CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccZGYNZB.s]
+         ignore line: [GNU assembler version 2.30 (x86_64-linux-gnu) using BFD version (GNU Binutils for Ubuntu) 2.30]
+         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
+         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+         ignore line: [Linking CXX executable cmTC_9fd31]
+         ignore line: [/opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9fd31.dir/link.txt --verbose=1]
+         ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_9fd31 ]
+         ignore line: [Using built-in specs.]
+         ignore line: [COLLECT_GCC=/usr/bin/c++]
+         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
+         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+         ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+         ignore line: [Target: x86_64-linux-gnu]
+         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+         ignore line: [Thread model: posix]
+         ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
+         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
+         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_9fd31' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+         link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccdLBfXI.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_9fd31 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
+           arg [-plugin] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
+           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
+           arg [-plugin-opt=-fresolution=/tmp/ccdLBfXI.res] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [--sysroot=/] ==> ignore
+           arg [--build-id] ==> ignore
+           arg [--eh-frame-hdr] ==> ignore
+           arg [-m] ==> ignore
+           arg [elf_x86_64] ==> ignore
+           arg [--hash-style=gnu] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-export-dynamic] ==> ignore
+           arg [-dynamic-linker] ==> ignore
+           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+           arg [-pie] ==> ignore
+           arg [-znow] ==> ignore
+           arg [-zrelro] ==> ignore
+           arg [-o] ==> ignore
+           arg [cmTC_9fd31] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
+           arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+           arg [-L/lib/../lib] ==> dir [/lib/../lib]
+           arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+           arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
+           arg [CMakeFiles/cmTC_9fd31.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+           arg [-lstdc++] ==> lib [stdc++]
+           arg [-lm] ==> lib [m]
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [-lgcc] ==> lib [gcc]
+           arg [-lc] ==> lib [c]
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [-lgcc] ==> lib [gcc]
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
+         collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+         collapse library dir [/lib/../lib] ==> [/lib]
+         collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+         collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
+         implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+         implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
+         implicit fwks: []
 
 
 
@@ -726,63 +726,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:1cxx_alias_templates
-	   Feature record: CXX_FEATURE:1cxx_alignas
-	   Feature record: CXX_FEATURE:1cxx_alignof
-	   Feature record: CXX_FEATURE:1cxx_attributes
-	   Feature record: CXX_FEATURE:1cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:1cxx_auto_type
-	   Feature record: CXX_FEATURE:1cxx_binary_literals
-	   Feature record: CXX_FEATURE:1cxx_constexpr
-	   Feature record: CXX_FEATURE:1cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:1cxx_decltype
-	   Feature record: CXX_FEATURE:1cxx_decltype_auto
-	   Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:1cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:1cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:1cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:1cxx_deleted_functions
-	   Feature record: CXX_FEATURE:1cxx_digit_separators
-	   Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:1cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:1cxx_extern_templates
-	   Feature record: CXX_FEATURE:1cxx_final
-	   Feature record: CXX_FEATURE:1cxx_func_identifier
-	   Feature record: CXX_FEATURE:1cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:1cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:1cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:1cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:1cxx_lambdas
-	   Feature record: CXX_FEATURE:1cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:1cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:1cxx_long_long_type
-	   Feature record: CXX_FEATURE:1cxx_noexcept
-	   Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:1cxx_nullptr
-	   Feature record: CXX_FEATURE:1cxx_override
-	   Feature record: CXX_FEATURE:1cxx_range_for
-	   Feature record: CXX_FEATURE:1cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:1cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:1cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:1cxx_rvalue_references
-	   Feature record: CXX_FEATURE:1cxx_sizeof_member
-	   Feature record: CXX_FEATURE:1cxx_static_assert
-	   Feature record: CXX_FEATURE:1cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:1cxx_thread_local
-	   Feature record: CXX_FEATURE:1cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:1cxx_unicode_literals
-	   Feature record: CXX_FEATURE:1cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:1cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:1cxx_user_literals
-	   Feature record: CXX_FEATURE:1cxx_variable_templates
-	   Feature record: CXX_FEATURE:1cxx_variadic_macros
-	   Feature record: CXX_FEATURE:1cxx_variadic_templates
+           Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:1cxx_alias_templates
+           Feature record: CXX_FEATURE:1cxx_alignas
+           Feature record: CXX_FEATURE:1cxx_alignof
+           Feature record: CXX_FEATURE:1cxx_attributes
+           Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:1cxx_auto_type
+           Feature record: CXX_FEATURE:1cxx_binary_literals
+           Feature record: CXX_FEATURE:1cxx_constexpr
+           Feature record: CXX_FEATURE:1cxx_contextual_conversions
+           Feature record: CXX_FEATURE:1cxx_decltype
+           Feature record: CXX_FEATURE:1cxx_decltype_auto
+           Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:1cxx_default_function_template_args
+           Feature record: CXX_FEATURE:1cxx_defaulted_functions
+           Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:1cxx_delegating_constructors
+           Feature record: CXX_FEATURE:1cxx_deleted_functions
+           Feature record: CXX_FEATURE:1cxx_digit_separators
+           Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:1cxx_explicit_conversions
+           Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:1cxx_extern_templates
+           Feature record: CXX_FEATURE:1cxx_final
+           Feature record: CXX_FEATURE:1cxx_func_identifier
+           Feature record: CXX_FEATURE:1cxx_generalized_initializers
+           Feature record: CXX_FEATURE:1cxx_generic_lambdas
+           Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:1cxx_inline_namespaces
+           Feature record: CXX_FEATURE:1cxx_lambdas
+           Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:1cxx_local_type_template_args
+           Feature record: CXX_FEATURE:1cxx_long_long_type
+           Feature record: CXX_FEATURE:1cxx_noexcept
+           Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:1cxx_nullptr
+           Feature record: CXX_FEATURE:1cxx_override
+           Feature record: CXX_FEATURE:1cxx_range_for
+           Feature record: CXX_FEATURE:1cxx_raw_string_literals
+           Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:1cxx_return_type_deduction
+           Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:1cxx_rvalue_references
+           Feature record: CXX_FEATURE:1cxx_sizeof_member
+           Feature record: CXX_FEATURE:1cxx_static_assert
+           Feature record: CXX_FEATURE:1cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:1cxx_thread_local
+           Feature record: CXX_FEATURE:1cxx_trailing_return_types
+           Feature record: CXX_FEATURE:1cxx_unicode_literals
+           Feature record: CXX_FEATURE:1cxx_uniform_initialization
+           Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:1cxx_user_literals
+           Feature record: CXX_FEATURE:1cxx_variable_templates
+           Feature record: CXX_FEATURE:1cxx_variadic_macros
+           Feature record: CXX_FEATURE:1cxx_variadic_templates
 
 
        Detecting CXX [-std=c++14] compiler features compiled with the following output:
@@ -799,63 +799,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:1cxx_alias_templates
-	   Feature record: CXX_FEATURE:1cxx_alignas
-	   Feature record: CXX_FEATURE:1cxx_alignof
-	   Feature record: CXX_FEATURE:1cxx_attributes
-	   Feature record: CXX_FEATURE:1cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:1cxx_auto_type
-	   Feature record: CXX_FEATURE:1cxx_binary_literals
-	   Feature record: CXX_FEATURE:1cxx_constexpr
-	   Feature record: CXX_FEATURE:1cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:1cxx_decltype
-	   Feature record: CXX_FEATURE:1cxx_decltype_auto
-	   Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:1cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:1cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:1cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:1cxx_deleted_functions
-	   Feature record: CXX_FEATURE:1cxx_digit_separators
-	   Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:1cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:1cxx_extern_templates
-	   Feature record: CXX_FEATURE:1cxx_final
-	   Feature record: CXX_FEATURE:1cxx_func_identifier
-	   Feature record: CXX_FEATURE:1cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:1cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:1cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:1cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:1cxx_lambdas
-	   Feature record: CXX_FEATURE:1cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:1cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:1cxx_long_long_type
-	   Feature record: CXX_FEATURE:1cxx_noexcept
-	   Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:1cxx_nullptr
-	   Feature record: CXX_FEATURE:1cxx_override
-	   Feature record: CXX_FEATURE:1cxx_range_for
-	   Feature record: CXX_FEATURE:1cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:1cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:1cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:1cxx_rvalue_references
-	   Feature record: CXX_FEATURE:1cxx_sizeof_member
-	   Feature record: CXX_FEATURE:1cxx_static_assert
-	   Feature record: CXX_FEATURE:1cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:1cxx_thread_local
-	   Feature record: CXX_FEATURE:1cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:1cxx_unicode_literals
-	   Feature record: CXX_FEATURE:1cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:1cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:1cxx_user_literals
-	   Feature record: CXX_FEATURE:1cxx_variable_templates
-	   Feature record: CXX_FEATURE:1cxx_variadic_macros
-	   Feature record: CXX_FEATURE:1cxx_variadic_templates
+           Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:1cxx_alias_templates
+           Feature record: CXX_FEATURE:1cxx_alignas
+           Feature record: CXX_FEATURE:1cxx_alignof
+           Feature record: CXX_FEATURE:1cxx_attributes
+           Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:1cxx_auto_type
+           Feature record: CXX_FEATURE:1cxx_binary_literals
+           Feature record: CXX_FEATURE:1cxx_constexpr
+           Feature record: CXX_FEATURE:1cxx_contextual_conversions
+           Feature record: CXX_FEATURE:1cxx_decltype
+           Feature record: CXX_FEATURE:1cxx_decltype_auto
+           Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:1cxx_default_function_template_args
+           Feature record: CXX_FEATURE:1cxx_defaulted_functions
+           Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:1cxx_delegating_constructors
+           Feature record: CXX_FEATURE:1cxx_deleted_functions
+           Feature record: CXX_FEATURE:1cxx_digit_separators
+           Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:1cxx_explicit_conversions
+           Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:1cxx_extern_templates
+           Feature record: CXX_FEATURE:1cxx_final
+           Feature record: CXX_FEATURE:1cxx_func_identifier
+           Feature record: CXX_FEATURE:1cxx_generalized_initializers
+           Feature record: CXX_FEATURE:1cxx_generic_lambdas
+           Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:1cxx_inline_namespaces
+           Feature record: CXX_FEATURE:1cxx_lambdas
+           Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:1cxx_local_type_template_args
+           Feature record: CXX_FEATURE:1cxx_long_long_type
+           Feature record: CXX_FEATURE:1cxx_noexcept
+           Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:1cxx_nullptr
+           Feature record: CXX_FEATURE:1cxx_override
+           Feature record: CXX_FEATURE:1cxx_range_for
+           Feature record: CXX_FEATURE:1cxx_raw_string_literals
+           Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:1cxx_return_type_deduction
+           Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:1cxx_rvalue_references
+           Feature record: CXX_FEATURE:1cxx_sizeof_member
+           Feature record: CXX_FEATURE:1cxx_static_assert
+           Feature record: CXX_FEATURE:1cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:1cxx_thread_local
+           Feature record: CXX_FEATURE:1cxx_trailing_return_types
+           Feature record: CXX_FEATURE:1cxx_unicode_literals
+           Feature record: CXX_FEATURE:1cxx_uniform_initialization
+           Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:1cxx_user_literals
+           Feature record: CXX_FEATURE:1cxx_variable_templates
+           Feature record: CXX_FEATURE:1cxx_variadic_macros
+           Feature record: CXX_FEATURE:1cxx_variadic_templates
 
 
        Detecting CXX [-std=c++11] compiler features compiled with the following output:
@@ -872,63 +872,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:1cxx_alias_templates
-	   Feature record: CXX_FEATURE:1cxx_alignas
-	   Feature record: CXX_FEATURE:1cxx_alignof
-	   Feature record: CXX_FEATURE:1cxx_attributes
-	   Feature record: CXX_FEATURE:0cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:1cxx_auto_type
-	   Feature record: CXX_FEATURE:0cxx_binary_literals
-	   Feature record: CXX_FEATURE:1cxx_constexpr
-	   Feature record: CXX_FEATURE:0cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:1cxx_decltype
-	   Feature record: CXX_FEATURE:0cxx_decltype_auto
-	   Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:1cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:1cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:1cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:1cxx_deleted_functions
-	   Feature record: CXX_FEATURE:0cxx_digit_separators
-	   Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:1cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:1cxx_extern_templates
-	   Feature record: CXX_FEATURE:1cxx_final
-	   Feature record: CXX_FEATURE:1cxx_func_identifier
-	   Feature record: CXX_FEATURE:1cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:0cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:1cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:1cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:1cxx_lambdas
-	   Feature record: CXX_FEATURE:0cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:1cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:1cxx_long_long_type
-	   Feature record: CXX_FEATURE:1cxx_noexcept
-	   Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:1cxx_nullptr
-	   Feature record: CXX_FEATURE:1cxx_override
-	   Feature record: CXX_FEATURE:1cxx_range_for
-	   Feature record: CXX_FEATURE:1cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:0cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:1cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:1cxx_rvalue_references
-	   Feature record: CXX_FEATURE:1cxx_sizeof_member
-	   Feature record: CXX_FEATURE:1cxx_static_assert
-	   Feature record: CXX_FEATURE:1cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:1cxx_thread_local
-	   Feature record: CXX_FEATURE:1cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:1cxx_unicode_literals
-	   Feature record: CXX_FEATURE:1cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:1cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:1cxx_user_literals
-	   Feature record: CXX_FEATURE:0cxx_variable_templates
-	   Feature record: CXX_FEATURE:1cxx_variadic_macros
-	   Feature record: CXX_FEATURE:1cxx_variadic_templates
+           Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:1cxx_alias_templates
+           Feature record: CXX_FEATURE:1cxx_alignas
+           Feature record: CXX_FEATURE:1cxx_alignof
+           Feature record: CXX_FEATURE:1cxx_attributes
+           Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:1cxx_auto_type
+           Feature record: CXX_FEATURE:0cxx_binary_literals
+           Feature record: CXX_FEATURE:1cxx_constexpr
+           Feature record: CXX_FEATURE:0cxx_contextual_conversions
+           Feature record: CXX_FEATURE:1cxx_decltype
+           Feature record: CXX_FEATURE:0cxx_decltype_auto
+           Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:1cxx_default_function_template_args
+           Feature record: CXX_FEATURE:1cxx_defaulted_functions
+           Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:1cxx_delegating_constructors
+           Feature record: CXX_FEATURE:1cxx_deleted_functions
+           Feature record: CXX_FEATURE:0cxx_digit_separators
+           Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:1cxx_explicit_conversions
+           Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:1cxx_extern_templates
+           Feature record: CXX_FEATURE:1cxx_final
+           Feature record: CXX_FEATURE:1cxx_func_identifier
+           Feature record: CXX_FEATURE:1cxx_generalized_initializers
+           Feature record: CXX_FEATURE:0cxx_generic_lambdas
+           Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:1cxx_inline_namespaces
+           Feature record: CXX_FEATURE:1cxx_lambdas
+           Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:1cxx_local_type_template_args
+           Feature record: CXX_FEATURE:1cxx_long_long_type
+           Feature record: CXX_FEATURE:1cxx_noexcept
+           Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:1cxx_nullptr
+           Feature record: CXX_FEATURE:1cxx_override
+           Feature record: CXX_FEATURE:1cxx_range_for
+           Feature record: CXX_FEATURE:1cxx_raw_string_literals
+           Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:0cxx_return_type_deduction
+           Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:1cxx_rvalue_references
+           Feature record: CXX_FEATURE:1cxx_sizeof_member
+           Feature record: CXX_FEATURE:1cxx_static_assert
+           Feature record: CXX_FEATURE:1cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:1cxx_thread_local
+           Feature record: CXX_FEATURE:1cxx_trailing_return_types
+           Feature record: CXX_FEATURE:1cxx_unicode_literals
+           Feature record: CXX_FEATURE:1cxx_uniform_initialization
+           Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:1cxx_user_literals
+           Feature record: CXX_FEATURE:0cxx_variable_templates
+           Feature record: CXX_FEATURE:1cxx_variadic_macros
+           Feature record: CXX_FEATURE:1cxx_variadic_templates
 
 
        Detecting CXX [-std=c++98] compiler features compiled with the following output:
@@ -945,63 +945,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:0cxx_alias_templates
-	   Feature record: CXX_FEATURE:0cxx_alignas
-	   Feature record: CXX_FEATURE:0cxx_alignof
-	   Feature record: CXX_FEATURE:0cxx_attributes
-	   Feature record: CXX_FEATURE:0cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:0cxx_auto_type
-	   Feature record: CXX_FEATURE:0cxx_binary_literals
-	   Feature record: CXX_FEATURE:0cxx_constexpr
-	   Feature record: CXX_FEATURE:0cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:0cxx_decltype
-	   Feature record: CXX_FEATURE:0cxx_decltype_auto
-	   Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:0cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:0cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:0cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:0cxx_deleted_functions
-	   Feature record: CXX_FEATURE:0cxx_digit_separators
-	   Feature record: CXX_FEATURE:0cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:0cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:0cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:0cxx_extern_templates
-	   Feature record: CXX_FEATURE:0cxx_final
-	   Feature record: CXX_FEATURE:0cxx_func_identifier
-	   Feature record: CXX_FEATURE:0cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:0cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:0cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:0cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:0cxx_lambdas
-	   Feature record: CXX_FEATURE:0cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:0cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:0cxx_long_long_type
-	   Feature record: CXX_FEATURE:0cxx_noexcept
-	   Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:0cxx_nullptr
-	   Feature record: CXX_FEATURE:0cxx_override
-	   Feature record: CXX_FEATURE:0cxx_range_for
-	   Feature record: CXX_FEATURE:0cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:0cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:0cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:0cxx_rvalue_references
-	   Feature record: CXX_FEATURE:0cxx_sizeof_member
-	   Feature record: CXX_FEATURE:0cxx_static_assert
-	   Feature record: CXX_FEATURE:0cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:0cxx_thread_local
-	   Feature record: CXX_FEATURE:0cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:0cxx_unicode_literals
-	   Feature record: CXX_FEATURE:0cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:0cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:0cxx_user_literals
-	   Feature record: CXX_FEATURE:0cxx_variable_templates
-	   Feature record: CXX_FEATURE:0cxx_variadic_macros
-	   Feature record: CXX_FEATURE:0cxx_variadic_templates
+           Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:0cxx_alias_templates
+           Feature record: CXX_FEATURE:0cxx_alignas
+           Feature record: CXX_FEATURE:0cxx_alignof
+           Feature record: CXX_FEATURE:0cxx_attributes
+           Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:0cxx_auto_type
+           Feature record: CXX_FEATURE:0cxx_binary_literals
+           Feature record: CXX_FEATURE:0cxx_constexpr
+           Feature record: CXX_FEATURE:0cxx_contextual_conversions
+           Feature record: CXX_FEATURE:0cxx_decltype
+           Feature record: CXX_FEATURE:0cxx_decltype_auto
+           Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:0cxx_default_function_template_args
+           Feature record: CXX_FEATURE:0cxx_defaulted_functions
+           Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:0cxx_delegating_constructors
+           Feature record: CXX_FEATURE:0cxx_deleted_functions
+           Feature record: CXX_FEATURE:0cxx_digit_separators
+           Feature record: CXX_FEATURE:0cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:0cxx_explicit_conversions
+           Feature record: CXX_FEATURE:0cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:0cxx_extern_templates
+           Feature record: CXX_FEATURE:0cxx_final
+           Feature record: CXX_FEATURE:0cxx_func_identifier
+           Feature record: CXX_FEATURE:0cxx_generalized_initializers
+           Feature record: CXX_FEATURE:0cxx_generic_lambdas
+           Feature record: CXX_FEATURE:0cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:0cxx_inline_namespaces
+           Feature record: CXX_FEATURE:0cxx_lambdas
+           Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:0cxx_local_type_template_args
+           Feature record: CXX_FEATURE:0cxx_long_long_type
+           Feature record: CXX_FEATURE:0cxx_noexcept
+           Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:0cxx_nullptr
+           Feature record: CXX_FEATURE:0cxx_override
+           Feature record: CXX_FEATURE:0cxx_range_for
+           Feature record: CXX_FEATURE:0cxx_raw_string_literals
+           Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:0cxx_return_type_deduction
+           Feature record: CXX_FEATURE:0cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:0cxx_rvalue_references
+           Feature record: CXX_FEATURE:0cxx_sizeof_member
+           Feature record: CXX_FEATURE:0cxx_static_assert
+           Feature record: CXX_FEATURE:0cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:0cxx_thread_local
+           Feature record: CXX_FEATURE:0cxx_trailing_return_types
+           Feature record: CXX_FEATURE:0cxx_unicode_literals
+           Feature record: CXX_FEATURE:0cxx_uniform_initialization
+           Feature record: CXX_FEATURE:0cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:0cxx_user_literals
+           Feature record: CXX_FEATURE:0cxx_variable_templates
+           Feature record: CXX_FEATURE:0cxx_variadic_macros
+           Feature record: CXX_FEATURE:0cxx_variadic_templates
        Determining if the include file pthread.h exists passed with the following output:
        Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
 
@@ -1094,99 +1094,99 @@ How to reproduce:
        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_365c8' '-mtune=generic' '-march=x86-64'
-	/usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5TQUcL.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_365c8 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+        /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5TQUcL.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_365c8 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_365c8' '-mtune=generic' '-march=x86-64'
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
        Parsed C implicit link information from above output:
-	 link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-	 ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
-	 ignore line: []
-	 ignore line: [Run Build Command:"/usr/bin/make" "cmTC_365c8/fast"]
-	 ignore line: [/usr/bin/make -f CMakeFiles/cmTC_365c8.dir/build.make CMakeFiles/cmTC_365c8.dir/build]
-	 ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
-	 ignore line: [Building C object CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o]
-	 ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-	 ignore line: [Linking C executable cmTC_365c8]
-	 ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_365c8.dir/link.txt --verbose=1]
-	 ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o  -o cmTC_365c8 ]
-	 ignore line: [Using built-in specs.]
-	 ignore line: [COLLECT_GCC=/usr/bin/cc]
-	 ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
-	 ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-	 ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-	 ignore line: [Target: x86_64-linux-gnu]
-	 ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
-	 ignore line: [Thread model: posix]
-	 ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
-	 ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-	 ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_365c8' '-mtune=generic' '-march=x86-64']
-	 link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5TQUcL.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_365c8 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
-	   arg [-plugin] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
-	   arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-	   arg [-plugin-opt=-fresolution=/tmp/cc5TQUcL.res] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [--sysroot=/] ==> ignore
-	   arg [--build-id] ==> ignore
-	   arg [--eh-frame-hdr] ==> ignore
-	   arg [-m] ==> ignore
-	   arg [elf_x86_64] ==> ignore
-	   arg [--hash-style=gnu] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-export-dynamic] ==> ignore
-	   arg [-dynamic-linker] ==> ignore
-	   arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
-	   arg [-pie] ==> ignore
-	   arg [-znow] ==> ignore
-	   arg [-zrelro] ==> ignore
-	   arg [-o] ==> ignore
-	   arg [cmTC_365c8] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
-	   arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
-	   arg [-L/lib/../lib] ==> dir [/lib/../lib]
-	   arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
-	   arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-	   arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-	   arg [CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o] ==> ignore
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [--push-state] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [--pop-state] ==> ignore
-	   arg [-lc] ==> lib [c]
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [--push-state] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [--pop-state] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
-	 collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
-	 collapse library dir [/lib/../lib] ==> [/lib]
-	 collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-	 collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
-	 implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
-	 implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
-	 implicit fwks: []
+         link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+         ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
+         ignore line: []
+         ignore line: [Run Build Command:"/usr/bin/make" "cmTC_365c8/fast"]
+         ignore line: [/usr/bin/make -f CMakeFiles/cmTC_365c8.dir/build.make CMakeFiles/cmTC_365c8.dir/build]
+         ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
+         ignore line: [Building C object CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o]
+         ignore line: [/usr/bin/cc    -o CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+         ignore line: [Linking C executable cmTC_365c8]
+         ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_365c8.dir/link.txt --verbose=1]
+         ignore line: [/usr/bin/cc     -v -rdynamic CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o  -o cmTC_365c8 ]
+         ignore line: [Using built-in specs.]
+         ignore line: [COLLECT_GCC=/usr/bin/cc]
+         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
+         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+         ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+         ignore line: [Target: x86_64-linux-gnu]
+         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+         ignore line: [Thread model: posix]
+         ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
+         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
+         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_365c8' '-mtune=generic' '-march=x86-64']
+         link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/cc5TQUcL.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_365c8 /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
+           arg [-plugin] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
+           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
+           arg [-plugin-opt=-fresolution=/tmp/cc5TQUcL.res] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [-plugin-opt=-pass-through=-lc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [--sysroot=/] ==> ignore
+           arg [--build-id] ==> ignore
+           arg [--eh-frame-hdr] ==> ignore
+           arg [-m] ==> ignore
+           arg [elf_x86_64] ==> ignore
+           arg [--hash-style=gnu] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-export-dynamic] ==> ignore
+           arg [-dynamic-linker] ==> ignore
+           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+           arg [-pie] ==> ignore
+           arg [-znow] ==> ignore
+           arg [-zrelro] ==> ignore
+           arg [-o] ==> ignore
+           arg [cmTC_365c8] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
+           arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+           arg [-L/lib/../lib] ==> dir [/lib/../lib]
+           arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+           arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
+           arg [CMakeFiles/cmTC_365c8.dir/CMakeCCompilerABI.c.o] ==> ignore
+           arg [-lgcc] ==> lib [gcc]
+           arg [--push-state] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [--pop-state] ==> ignore
+           arg [-lc] ==> lib [c]
+           arg [-lgcc] ==> lib [gcc]
+           arg [--push-state] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [--pop-state] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
+         collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+         collapse library dir [/lib/../lib] ==> [/lib]
+         collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+         collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
+         implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+         implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
+         implicit fwks: []
 
 
 
@@ -1205,10 +1205,10 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: C_FEATURE:1c_function_prototypes
-	   Feature record: C_FEATURE:1c_restrict
-	   Feature record: C_FEATURE:1c_static_assert
-	   Feature record: C_FEATURE:1c_variadic_macros
+           Feature record: C_FEATURE:1c_function_prototypes
+           Feature record: C_FEATURE:1c_restrict
+           Feature record: C_FEATURE:1c_static_assert
+           Feature record: C_FEATURE:1c_variadic_macros
 
 
        Detecting C [-std=c99] compiler features compiled with the following output:
@@ -1225,10 +1225,10 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: C_FEATURE:1c_function_prototypes
-	   Feature record: C_FEATURE:1c_restrict
-	   Feature record: C_FEATURE:0c_static_assert
-	   Feature record: C_FEATURE:1c_variadic_macros
+           Feature record: C_FEATURE:1c_function_prototypes
+           Feature record: C_FEATURE:1c_restrict
+           Feature record: C_FEATURE:0c_static_assert
+           Feature record: C_FEATURE:1c_variadic_macros
 
 
        Detecting C [-std=c90] compiler features compiled with the following output:
@@ -1245,10 +1245,10 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: C_FEATURE:1c_function_prototypes
-	   Feature record: C_FEATURE:0c_restrict
-	   Feature record: C_FEATURE:0c_static_assert
-	   Feature record: C_FEATURE:0c_variadic_macros
+           Feature record: C_FEATURE:1c_function_prototypes
+           Feature record: C_FEATURE:0c_restrict
+           Feature record: C_FEATURE:0c_static_assert
+           Feature record: C_FEATURE:0c_variadic_macros
        Determining if the CXX compiler works passed with the following output:
        Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
 
@@ -1286,95 +1286,95 @@ How to reproduce:
        COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/
        LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_5100f' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
-	/usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccL4xmwq.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_5100f /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
+        /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccL4xmwq.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_5100f /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o
        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_5100f' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
        Parsed CXX implicit link information from above output:
-	 link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-	 ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
-	 ignore line: []
-	 ignore line: [Run Build Command:"/usr/bin/make" "cmTC_5100f/fast"]
-	 ignore line: [/usr/bin/make -f CMakeFiles/cmTC_5100f.dir/build.make CMakeFiles/cmTC_5100f.dir/build]
-	 ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
-	 ignore line: [Building CXX object CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o]
-	 ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-	 ignore line: [Linking CXX executable cmTC_5100f]
-	 ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5100f.dir/link.txt --verbose=1]
-	 ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_5100f ]
-	 ignore line: [Using built-in specs.]
-	 ignore line: [COLLECT_GCC=/usr/bin/c++]
-	 ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
-	 ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
-	 ignore line: [OFFLOAD_TARGET_DEFAULT=1]
-	 ignore line: [Target: x86_64-linux-gnu]
-	 ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
-	 ignore line: [Thread model: posix]
-	 ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
-	 ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
-	 ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
-	 ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_5100f' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-	 link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccL4xmwq.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_5100f /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
-	   arg [-plugin] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
-	   arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
-	   arg [-plugin-opt=-fresolution=/tmp/ccL4xmwq.res] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lc] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-	   arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-	   arg [--sysroot=/] ==> ignore
-	   arg [--build-id] ==> ignore
-	   arg [--eh-frame-hdr] ==> ignore
-	   arg [-m] ==> ignore
-	   arg [elf_x86_64] ==> ignore
-	   arg [--hash-style=gnu] ==> ignore
-	   arg [--as-needed] ==> ignore
-	   arg [-export-dynamic] ==> ignore
-	   arg [-dynamic-linker] ==> ignore
-	   arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
-	   arg [-pie] ==> ignore
-	   arg [-znow] ==> ignore
-	   arg [-zrelro] ==> ignore
-	   arg [-o] ==> ignore
-	   arg [cmTC_5100f] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
-	   arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
-	   arg [-L/lib/../lib] ==> dir [/lib/../lib]
-	   arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
-	   arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
-	   arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
-	   arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
-	   arg [CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
-	   arg [-lstdc++] ==> lib [stdc++]
-	   arg [-lm] ==> lib [m]
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [-lc] ==> lib [c]
-	   arg [-lgcc_s] ==> lib [gcc_s]
-	   arg [-lgcc] ==> lib [gcc]
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
-	   arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
-	 collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
-	 collapse library dir [/lib/../lib] ==> [/lib]
-	 collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
-	 collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
-	 collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
-	 collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
-	 implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
-	 implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
-	 implicit fwks: []
+         link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+         ignore line: [Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp]
+         ignore line: []
+         ignore line: [Run Build Command:"/usr/bin/make" "cmTC_5100f/fast"]
+         ignore line: [/usr/bin/make -f CMakeFiles/cmTC_5100f.dir/build.make CMakeFiles/cmTC_5100f.dir/build]
+         ignore line: [make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp']
+         ignore line: [Building CXX object CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o]
+         ignore line: [/usr/bin/c++     -o CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+         ignore line: [Linking CXX executable cmTC_5100f]
+         ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5100f.dir/link.txt --verbose=1]
+         ignore line: [/usr/bin/c++      -v -rdynamic CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_5100f ]
+         ignore line: [Using built-in specs.]
+         ignore line: [COLLECT_GCC=/usr/bin/c++]
+         ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper]
+         ignore line: [OFFLOAD_TARGET_NAMES=nvptx-none]
+         ignore line: [OFFLOAD_TARGET_DEFAULT=1]
+         ignore line: [Target: x86_64-linux-gnu]
+         ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 7.4.0-1ubuntu1~18.04.1' --with-bugurl=file:///usr/share/doc/gcc-7/README.Bugs --enable-languages=c,ada,c++,go,brig,d,fortran,objc,obj-c++ --prefix=/usr --with-gcc-major-version-only --program-suffix=-7 --program-prefix=x86_64-linux-gnu- --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --enable-default-pie --with-system-zlib --with-target-system-zlib --enable-objc-gc=auto --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-offload-targets=nvptx-none --without-cuda-driver --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+         ignore line: [Thread model: posix]
+         ignore line: [gcc version 7.4.0 (Ubuntu 7.4.0-1ubuntu1~18.04.1) ]
+         ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/]
+         ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/7/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/local/cuda/lib64/stubs/:/usr/lib/gcc/x86_64-linux-gnu/7/../../../:/lib/:/usr/lib/]
+         ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_5100f' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+         link line: [ /usr/lib/gcc/x86_64-linux-gnu/7/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper -plugin-opt=-fresolution=/tmp/ccL4xmwq.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie -z now -z relro -o cmTC_5100f /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/7 -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/local/cuda/lib64/stubs -L/usr/lib/gcc/x86_64-linux-gnu/7/../../.. CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o]
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/collect2] ==> ignore
+           arg [-plugin] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/liblto_plugin.so] ==> ignore
+           arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/7/lto-wrapper] ==> ignore
+           arg [-plugin-opt=-fresolution=/tmp/ccL4xmwq.res] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lc] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+           arg [--sysroot=/] ==> ignore
+           arg [--build-id] ==> ignore
+           arg [--eh-frame-hdr] ==> ignore
+           arg [-m] ==> ignore
+           arg [elf_x86_64] ==> ignore
+           arg [--hash-style=gnu] ==> ignore
+           arg [--as-needed] ==> ignore
+           arg [-export-dynamic] ==> ignore
+           arg [-dynamic-linker] ==> ignore
+           arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+           arg [-pie] ==> ignore
+           arg [-znow] ==> ignore
+           arg [-zrelro] ==> ignore
+           arg [-o] ==> ignore
+           arg [cmTC_5100f] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/Scrt1.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crti.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtbeginS.o] ==> ignore
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib]
+           arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+           arg [-L/lib/../lib] ==> dir [/lib/../lib]
+           arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+           arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+           arg [-L/usr/local/cuda/lib64/stubs] ==> dir [/usr/local/cuda/lib64/stubs]
+           arg [-L/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..]
+           arg [CMakeFiles/cmTC_5100f.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+           arg [-lstdc++] ==> lib [stdc++]
+           arg [-lm] ==> lib [m]
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [-lgcc] ==> lib [gcc]
+           arg [-lc] ==> lib [c]
+           arg [-lgcc_s] ==> lib [gcc_s]
+           arg [-lgcc] ==> lib [gcc]
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/crtendS.o] ==> ignore
+           arg [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7] ==> [/usr/lib/gcc/x86_64-linux-gnu/7]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../../../lib] ==> [/usr/lib]
+         collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+         collapse library dir [/lib/../lib] ==> [/lib]
+         collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+         collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+         collapse library dir [/usr/local/cuda/lib64/stubs] ==> [/usr/local/cuda/lib64/stubs]
+         collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/7/../../..] ==> [/usr/lib]
+         implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+         implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/7;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib;/usr/local/cuda/lib64/stubs]
+         implicit fwks: []
 
 
 
@@ -1393,63 +1393,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:1cxx_alias_templates
-	   Feature record: CXX_FEATURE:1cxx_alignas
-	   Feature record: CXX_FEATURE:1cxx_alignof
-	   Feature record: CXX_FEATURE:1cxx_attributes
-	   Feature record: CXX_FEATURE:1cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:1cxx_auto_type
-	   Feature record: CXX_FEATURE:1cxx_binary_literals
-	   Feature record: CXX_FEATURE:1cxx_constexpr
-	   Feature record: CXX_FEATURE:1cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:1cxx_decltype
-	   Feature record: CXX_FEATURE:1cxx_decltype_auto
-	   Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:1cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:1cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:1cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:1cxx_deleted_functions
-	   Feature record: CXX_FEATURE:1cxx_digit_separators
-	   Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:1cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:1cxx_extern_templates
-	   Feature record: CXX_FEATURE:1cxx_final
-	   Feature record: CXX_FEATURE:1cxx_func_identifier
-	   Feature record: CXX_FEATURE:1cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:1cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:1cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:1cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:1cxx_lambdas
-	   Feature record: CXX_FEATURE:1cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:1cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:1cxx_long_long_type
-	   Feature record: CXX_FEATURE:1cxx_noexcept
-	   Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:1cxx_nullptr
-	   Feature record: CXX_FEATURE:1cxx_override
-	   Feature record: CXX_FEATURE:1cxx_range_for
-	   Feature record: CXX_FEATURE:1cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:1cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:1cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:1cxx_rvalue_references
-	   Feature record: CXX_FEATURE:1cxx_sizeof_member
-	   Feature record: CXX_FEATURE:1cxx_static_assert
-	   Feature record: CXX_FEATURE:1cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:1cxx_thread_local
-	   Feature record: CXX_FEATURE:1cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:1cxx_unicode_literals
-	   Feature record: CXX_FEATURE:1cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:1cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:1cxx_user_literals
-	   Feature record: CXX_FEATURE:1cxx_variable_templates
-	   Feature record: CXX_FEATURE:1cxx_variadic_macros
-	   Feature record: CXX_FEATURE:1cxx_variadic_templates
+           Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:1cxx_alias_templates
+           Feature record: CXX_FEATURE:1cxx_alignas
+           Feature record: CXX_FEATURE:1cxx_alignof
+           Feature record: CXX_FEATURE:1cxx_attributes
+           Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:1cxx_auto_type
+           Feature record: CXX_FEATURE:1cxx_binary_literals
+           Feature record: CXX_FEATURE:1cxx_constexpr
+           Feature record: CXX_FEATURE:1cxx_contextual_conversions
+           Feature record: CXX_FEATURE:1cxx_decltype
+           Feature record: CXX_FEATURE:1cxx_decltype_auto
+           Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:1cxx_default_function_template_args
+           Feature record: CXX_FEATURE:1cxx_defaulted_functions
+           Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:1cxx_delegating_constructors
+           Feature record: CXX_FEATURE:1cxx_deleted_functions
+           Feature record: CXX_FEATURE:1cxx_digit_separators
+           Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:1cxx_explicit_conversions
+           Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:1cxx_extern_templates
+           Feature record: CXX_FEATURE:1cxx_final
+           Feature record: CXX_FEATURE:1cxx_func_identifier
+           Feature record: CXX_FEATURE:1cxx_generalized_initializers
+           Feature record: CXX_FEATURE:1cxx_generic_lambdas
+           Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:1cxx_inline_namespaces
+           Feature record: CXX_FEATURE:1cxx_lambdas
+           Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:1cxx_local_type_template_args
+           Feature record: CXX_FEATURE:1cxx_long_long_type
+           Feature record: CXX_FEATURE:1cxx_noexcept
+           Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:1cxx_nullptr
+           Feature record: CXX_FEATURE:1cxx_override
+           Feature record: CXX_FEATURE:1cxx_range_for
+           Feature record: CXX_FEATURE:1cxx_raw_string_literals
+           Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:1cxx_return_type_deduction
+           Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:1cxx_rvalue_references
+           Feature record: CXX_FEATURE:1cxx_sizeof_member
+           Feature record: CXX_FEATURE:1cxx_static_assert
+           Feature record: CXX_FEATURE:1cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:1cxx_thread_local
+           Feature record: CXX_FEATURE:1cxx_trailing_return_types
+           Feature record: CXX_FEATURE:1cxx_unicode_literals
+           Feature record: CXX_FEATURE:1cxx_uniform_initialization
+           Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:1cxx_user_literals
+           Feature record: CXX_FEATURE:1cxx_variable_templates
+           Feature record: CXX_FEATURE:1cxx_variadic_macros
+           Feature record: CXX_FEATURE:1cxx_variadic_templates
 
 
        Detecting CXX [-std=c++14] compiler features compiled with the following output:
@@ -1466,63 +1466,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:1cxx_alias_templates
-	   Feature record: CXX_FEATURE:1cxx_alignas
-	   Feature record: CXX_FEATURE:1cxx_alignof
-	   Feature record: CXX_FEATURE:1cxx_attributes
-	   Feature record: CXX_FEATURE:1cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:1cxx_auto_type
-	   Feature record: CXX_FEATURE:1cxx_binary_literals
-	   Feature record: CXX_FEATURE:1cxx_constexpr
-	   Feature record: CXX_FEATURE:1cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:1cxx_decltype
-	   Feature record: CXX_FEATURE:1cxx_decltype_auto
-	   Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:1cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:1cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:1cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:1cxx_deleted_functions
-	   Feature record: CXX_FEATURE:1cxx_digit_separators
-	   Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:1cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:1cxx_extern_templates
-	   Feature record: CXX_FEATURE:1cxx_final
-	   Feature record: CXX_FEATURE:1cxx_func_identifier
-	   Feature record: CXX_FEATURE:1cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:1cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:1cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:1cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:1cxx_lambdas
-	   Feature record: CXX_FEATURE:1cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:1cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:1cxx_long_long_type
-	   Feature record: CXX_FEATURE:1cxx_noexcept
-	   Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:1cxx_nullptr
-	   Feature record: CXX_FEATURE:1cxx_override
-	   Feature record: CXX_FEATURE:1cxx_range_for
-	   Feature record: CXX_FEATURE:1cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:1cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:1cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:1cxx_rvalue_references
-	   Feature record: CXX_FEATURE:1cxx_sizeof_member
-	   Feature record: CXX_FEATURE:1cxx_static_assert
-	   Feature record: CXX_FEATURE:1cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:1cxx_thread_local
-	   Feature record: CXX_FEATURE:1cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:1cxx_unicode_literals
-	   Feature record: CXX_FEATURE:1cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:1cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:1cxx_user_literals
-	   Feature record: CXX_FEATURE:1cxx_variable_templates
-	   Feature record: CXX_FEATURE:1cxx_variadic_macros
-	   Feature record: CXX_FEATURE:1cxx_variadic_templates
+           Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:1cxx_alias_templates
+           Feature record: CXX_FEATURE:1cxx_alignas
+           Feature record: CXX_FEATURE:1cxx_alignof
+           Feature record: CXX_FEATURE:1cxx_attributes
+           Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:1cxx_auto_type
+           Feature record: CXX_FEATURE:1cxx_binary_literals
+           Feature record: CXX_FEATURE:1cxx_constexpr
+           Feature record: CXX_FEATURE:1cxx_contextual_conversions
+           Feature record: CXX_FEATURE:1cxx_decltype
+           Feature record: CXX_FEATURE:1cxx_decltype_auto
+           Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:1cxx_default_function_template_args
+           Feature record: CXX_FEATURE:1cxx_defaulted_functions
+           Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:1cxx_delegating_constructors
+           Feature record: CXX_FEATURE:1cxx_deleted_functions
+           Feature record: CXX_FEATURE:1cxx_digit_separators
+           Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:1cxx_explicit_conversions
+           Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:1cxx_extern_templates
+           Feature record: CXX_FEATURE:1cxx_final
+           Feature record: CXX_FEATURE:1cxx_func_identifier
+           Feature record: CXX_FEATURE:1cxx_generalized_initializers
+           Feature record: CXX_FEATURE:1cxx_generic_lambdas
+           Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:1cxx_inline_namespaces
+           Feature record: CXX_FEATURE:1cxx_lambdas
+           Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:1cxx_local_type_template_args
+           Feature record: CXX_FEATURE:1cxx_long_long_type
+           Feature record: CXX_FEATURE:1cxx_noexcept
+           Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:1cxx_nullptr
+           Feature record: CXX_FEATURE:1cxx_override
+           Feature record: CXX_FEATURE:1cxx_range_for
+           Feature record: CXX_FEATURE:1cxx_raw_string_literals
+           Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:1cxx_return_type_deduction
+           Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:1cxx_rvalue_references
+           Feature record: CXX_FEATURE:1cxx_sizeof_member
+           Feature record: CXX_FEATURE:1cxx_static_assert
+           Feature record: CXX_FEATURE:1cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:1cxx_thread_local
+           Feature record: CXX_FEATURE:1cxx_trailing_return_types
+           Feature record: CXX_FEATURE:1cxx_unicode_literals
+           Feature record: CXX_FEATURE:1cxx_uniform_initialization
+           Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:1cxx_user_literals
+           Feature record: CXX_FEATURE:1cxx_variable_templates
+           Feature record: CXX_FEATURE:1cxx_variadic_macros
+           Feature record: CXX_FEATURE:1cxx_variadic_templates
 
 
        Detecting CXX [-std=c++11] compiler features compiled with the following output:
@@ -1539,63 +1539,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:1cxx_alias_templates
-	   Feature record: CXX_FEATURE:1cxx_alignas
-	   Feature record: CXX_FEATURE:1cxx_alignof
-	   Feature record: CXX_FEATURE:1cxx_attributes
-	   Feature record: CXX_FEATURE:0cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:1cxx_auto_type
-	   Feature record: CXX_FEATURE:0cxx_binary_literals
-	   Feature record: CXX_FEATURE:1cxx_constexpr
-	   Feature record: CXX_FEATURE:0cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:1cxx_decltype
-	   Feature record: CXX_FEATURE:0cxx_decltype_auto
-	   Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:1cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:1cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:1cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:1cxx_deleted_functions
-	   Feature record: CXX_FEATURE:0cxx_digit_separators
-	   Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:1cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:1cxx_extern_templates
-	   Feature record: CXX_FEATURE:1cxx_final
-	   Feature record: CXX_FEATURE:1cxx_func_identifier
-	   Feature record: CXX_FEATURE:1cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:0cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:1cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:1cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:1cxx_lambdas
-	   Feature record: CXX_FEATURE:0cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:1cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:1cxx_long_long_type
-	   Feature record: CXX_FEATURE:1cxx_noexcept
-	   Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:1cxx_nullptr
-	   Feature record: CXX_FEATURE:1cxx_override
-	   Feature record: CXX_FEATURE:1cxx_range_for
-	   Feature record: CXX_FEATURE:1cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:0cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:1cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:1cxx_rvalue_references
-	   Feature record: CXX_FEATURE:1cxx_sizeof_member
-	   Feature record: CXX_FEATURE:1cxx_static_assert
-	   Feature record: CXX_FEATURE:1cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:1cxx_thread_local
-	   Feature record: CXX_FEATURE:1cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:1cxx_unicode_literals
-	   Feature record: CXX_FEATURE:1cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:1cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:1cxx_user_literals
-	   Feature record: CXX_FEATURE:0cxx_variable_templates
-	   Feature record: CXX_FEATURE:1cxx_variadic_macros
-	   Feature record: CXX_FEATURE:1cxx_variadic_templates
+           Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:1cxx_alias_templates
+           Feature record: CXX_FEATURE:1cxx_alignas
+           Feature record: CXX_FEATURE:1cxx_alignof
+           Feature record: CXX_FEATURE:1cxx_attributes
+           Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:1cxx_auto_type
+           Feature record: CXX_FEATURE:0cxx_binary_literals
+           Feature record: CXX_FEATURE:1cxx_constexpr
+           Feature record: CXX_FEATURE:0cxx_contextual_conversions
+           Feature record: CXX_FEATURE:1cxx_decltype
+           Feature record: CXX_FEATURE:0cxx_decltype_auto
+           Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:1cxx_default_function_template_args
+           Feature record: CXX_FEATURE:1cxx_defaulted_functions
+           Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:1cxx_delegating_constructors
+           Feature record: CXX_FEATURE:1cxx_deleted_functions
+           Feature record: CXX_FEATURE:0cxx_digit_separators
+           Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:1cxx_explicit_conversions
+           Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:1cxx_extern_templates
+           Feature record: CXX_FEATURE:1cxx_final
+           Feature record: CXX_FEATURE:1cxx_func_identifier
+           Feature record: CXX_FEATURE:1cxx_generalized_initializers
+           Feature record: CXX_FEATURE:0cxx_generic_lambdas
+           Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:1cxx_inline_namespaces
+           Feature record: CXX_FEATURE:1cxx_lambdas
+           Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:1cxx_local_type_template_args
+           Feature record: CXX_FEATURE:1cxx_long_long_type
+           Feature record: CXX_FEATURE:1cxx_noexcept
+           Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:1cxx_nullptr
+           Feature record: CXX_FEATURE:1cxx_override
+           Feature record: CXX_FEATURE:1cxx_range_for
+           Feature record: CXX_FEATURE:1cxx_raw_string_literals
+           Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:0cxx_return_type_deduction
+           Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:1cxx_rvalue_references
+           Feature record: CXX_FEATURE:1cxx_sizeof_member
+           Feature record: CXX_FEATURE:1cxx_static_assert
+           Feature record: CXX_FEATURE:1cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:1cxx_thread_local
+           Feature record: CXX_FEATURE:1cxx_trailing_return_types
+           Feature record: CXX_FEATURE:1cxx_unicode_literals
+           Feature record: CXX_FEATURE:1cxx_uniform_initialization
+           Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:1cxx_user_literals
+           Feature record: CXX_FEATURE:0cxx_variable_templates
+           Feature record: CXX_FEATURE:1cxx_variadic_macros
+           Feature record: CXX_FEATURE:1cxx_variadic_templates
 
 
        Detecting CXX [-std=c++98] compiler features compiled with the following output:
@@ -1612,63 +1612,63 @@ How to reproduce:
        make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
 
 
-	   Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
-	   Feature record: CXX_FEATURE:0cxx_alias_templates
-	   Feature record: CXX_FEATURE:0cxx_alignas
-	   Feature record: CXX_FEATURE:0cxx_alignof
-	   Feature record: CXX_FEATURE:0cxx_attributes
-	   Feature record: CXX_FEATURE:0cxx_attribute_deprecated
-	   Feature record: CXX_FEATURE:0cxx_auto_type
-	   Feature record: CXX_FEATURE:0cxx_binary_literals
-	   Feature record: CXX_FEATURE:0cxx_constexpr
-	   Feature record: CXX_FEATURE:0cxx_contextual_conversions
-	   Feature record: CXX_FEATURE:0cxx_decltype
-	   Feature record: CXX_FEATURE:0cxx_decltype_auto
-	   Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
-	   Feature record: CXX_FEATURE:0cxx_default_function_template_args
-	   Feature record: CXX_FEATURE:0cxx_defaulted_functions
-	   Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
-	   Feature record: CXX_FEATURE:0cxx_delegating_constructors
-	   Feature record: CXX_FEATURE:0cxx_deleted_functions
-	   Feature record: CXX_FEATURE:0cxx_digit_separators
-	   Feature record: CXX_FEATURE:0cxx_enum_forward_declarations
-	   Feature record: CXX_FEATURE:0cxx_explicit_conversions
-	   Feature record: CXX_FEATURE:0cxx_extended_friend_declarations
-	   Feature record: CXX_FEATURE:0cxx_extern_templates
-	   Feature record: CXX_FEATURE:0cxx_final
-	   Feature record: CXX_FEATURE:0cxx_func_identifier
-	   Feature record: CXX_FEATURE:0cxx_generalized_initializers
-	   Feature record: CXX_FEATURE:0cxx_generic_lambdas
-	   Feature record: CXX_FEATURE:0cxx_inheriting_constructors
-	   Feature record: CXX_FEATURE:0cxx_inline_namespaces
-	   Feature record: CXX_FEATURE:0cxx_lambdas
-	   Feature record: CXX_FEATURE:0cxx_lambda_init_captures
-	   Feature record: CXX_FEATURE:0cxx_local_type_template_args
-	   Feature record: CXX_FEATURE:0cxx_long_long_type
-	   Feature record: CXX_FEATURE:0cxx_noexcept
-	   Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
-	   Feature record: CXX_FEATURE:0cxx_nullptr
-	   Feature record: CXX_FEATURE:0cxx_override
-	   Feature record: CXX_FEATURE:0cxx_range_for
-	   Feature record: CXX_FEATURE:0cxx_raw_string_literals
-	   Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
-	   Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
-	   Feature record: CXX_FEATURE:0cxx_return_type_deduction
-	   Feature record: CXX_FEATURE:0cxx_right_angle_brackets
-	   Feature record: CXX_FEATURE:0cxx_rvalue_references
-	   Feature record: CXX_FEATURE:0cxx_sizeof_member
-	   Feature record: CXX_FEATURE:0cxx_static_assert
-	   Feature record: CXX_FEATURE:0cxx_strong_enums
-	   Feature record: CXX_FEATURE:1cxx_template_template_parameters
-	   Feature record: CXX_FEATURE:0cxx_thread_local
-	   Feature record: CXX_FEATURE:0cxx_trailing_return_types
-	   Feature record: CXX_FEATURE:0cxx_unicode_literals
-	   Feature record: CXX_FEATURE:0cxx_uniform_initialization
-	   Feature record: CXX_FEATURE:0cxx_unrestricted_unions
-	   Feature record: CXX_FEATURE:0cxx_user_literals
-	   Feature record: CXX_FEATURE:0cxx_variable_templates
-	   Feature record: CXX_FEATURE:0cxx_variadic_macros
-	   Feature record: CXX_FEATURE:0cxx_variadic_templates
+           Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+           Feature record: CXX_FEATURE:0cxx_alias_templates
+           Feature record: CXX_FEATURE:0cxx_alignas
+           Feature record: CXX_FEATURE:0cxx_alignof
+           Feature record: CXX_FEATURE:0cxx_attributes
+           Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+           Feature record: CXX_FEATURE:0cxx_auto_type
+           Feature record: CXX_FEATURE:0cxx_binary_literals
+           Feature record: CXX_FEATURE:0cxx_constexpr
+           Feature record: CXX_FEATURE:0cxx_contextual_conversions
+           Feature record: CXX_FEATURE:0cxx_decltype
+           Feature record: CXX_FEATURE:0cxx_decltype_auto
+           Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
+           Feature record: CXX_FEATURE:0cxx_default_function_template_args
+           Feature record: CXX_FEATURE:0cxx_defaulted_functions
+           Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
+           Feature record: CXX_FEATURE:0cxx_delegating_constructors
+           Feature record: CXX_FEATURE:0cxx_deleted_functions
+           Feature record: CXX_FEATURE:0cxx_digit_separators
+           Feature record: CXX_FEATURE:0cxx_enum_forward_declarations
+           Feature record: CXX_FEATURE:0cxx_explicit_conversions
+           Feature record: CXX_FEATURE:0cxx_extended_friend_declarations
+           Feature record: CXX_FEATURE:0cxx_extern_templates
+           Feature record: CXX_FEATURE:0cxx_final
+           Feature record: CXX_FEATURE:0cxx_func_identifier
+           Feature record: CXX_FEATURE:0cxx_generalized_initializers
+           Feature record: CXX_FEATURE:0cxx_generic_lambdas
+           Feature record: CXX_FEATURE:0cxx_inheriting_constructors
+           Feature record: CXX_FEATURE:0cxx_inline_namespaces
+           Feature record: CXX_FEATURE:0cxx_lambdas
+           Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+           Feature record: CXX_FEATURE:0cxx_local_type_template_args
+           Feature record: CXX_FEATURE:0cxx_long_long_type
+           Feature record: CXX_FEATURE:0cxx_noexcept
+           Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
+           Feature record: CXX_FEATURE:0cxx_nullptr
+           Feature record: CXX_FEATURE:0cxx_override
+           Feature record: CXX_FEATURE:0cxx_range_for
+           Feature record: CXX_FEATURE:0cxx_raw_string_literals
+           Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
+           Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+           Feature record: CXX_FEATURE:0cxx_return_type_deduction
+           Feature record: CXX_FEATURE:0cxx_right_angle_brackets
+           Feature record: CXX_FEATURE:0cxx_rvalue_references
+           Feature record: CXX_FEATURE:0cxx_sizeof_member
+           Feature record: CXX_FEATURE:0cxx_static_assert
+           Feature record: CXX_FEATURE:0cxx_strong_enums
+           Feature record: CXX_FEATURE:1cxx_template_template_parameters
+           Feature record: CXX_FEATURE:0cxx_thread_local
+           Feature record: CXX_FEATURE:0cxx_trailing_return_types
+           Feature record: CXX_FEATURE:0cxx_unicode_literals
+           Feature record: CXX_FEATURE:0cxx_uniform_initialization
+           Feature record: CXX_FEATURE:0cxx_unrestricted_unions
+           Feature record: CXX_FEATURE:0cxx_user_literals
+           Feature record: CXX_FEATURE:0cxx_variable_templates
+           Feature record: CXX_FEATURE:0cxx_variadic_macros
+           Feature record: CXX_FEATURE:0cxx_variadic_templates
 
 
 ... and /warp-ctc/build/CMakeFiles/CMakeError.log:
