@@ -6,11 +6,13 @@ this time it's the only thing on my TODO list to fix.  If you have any
 insigths at all on how to fix this, please don't be shy: Reach out to
 me on rmz@telenordigital.com or call me on +47 47900184.
 
-How to reproduce:
+#How to reproduce:
 
+## Build container
 
-1. Run ./build-container.sh. My build will obviously start from cached results, but the error consistently happens
-   on the "cmake ../" step when building warp-ctc:
+Run ./build-container.sh. My build will obviously start from cached
+results, but the error consistently happens on the "cmake ../" step
+when building warp-ctc:
 
 
        rmz@loke:~/git/danspeech/docker$ ./build-container.sh 
@@ -150,11 +152,11 @@ How to reproduce:
 
 
 
-1.  I couldn't find any of the log files above, so I instead tried to
-    start a version of the image and run the cmake command from the comand
-    line. I then got this result:
+## Run build interactively
 
-
+I couldn't find any of the log files above, so I instead tried to
+start a version of the image and run the cmake command from the comand
+line. I then got this result:
 
        (base) root@d4c66736b301:/warp-ctc/build# cmake ../
        -- Found CUDA: /usr/local/cuda (found suitable version "10.1", minimum required is "6.5") 
