@@ -248,9 +248,9 @@ line. I then got this result:
 
 
 
-1. The content of the  CMakeOutput.log:
+## The content of the  CMakeOutput.log:
 
-       The system is: Linux - 4.15.0-96-generic - x86_64
+         The system is: Linux - 4.15.0-96-generic - x86_64
 	 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
 	 Compiler: /usr/bin/cc 
 	 Build flags: 
