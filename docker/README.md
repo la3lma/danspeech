@@ -1,8 +1,10 @@
-# TODO
+# README / TODO for the docker image for danspeech
 
 Right now the build is blocked by an issue I don't understand.  It is
 related to building warp-ctc.  Since that is blocking everything, at
-this time it's the only thing on my TODO list to fix:
+this time it's the only thing on my TODO list to fix.  If you have any
+insigths at all on how to fix this, please don't be shy: Reach out to
+me on rmz@telenordigital.com or call me on +47 47900184.
 
 How to reproduce:
 
