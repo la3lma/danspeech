@@ -1,0 +1,126 @@
+    1  python
+    2  conda info
+    3  conda create --name pytorchgpu
+    4  conda activate pytorchgpu
+    5  conda init
+    6  exit
+    7  conda activate pytorchgpu
+    8  python
+    9  conda install matplotlib
+   10  conda install ipykernel
+   11  conda install jupyter
+   12  python -m ipykernel install --name=pytorchgpu
+   13  python
+   14  conda deactivate
+   15  conda remove --name pytorchgpu --all
+   16  python
+   17  conda create --name pytorchgpu
+   18  conda init
+   19  exit
+   20  conda activate pytorchgpu
+   21  conda install matplotlib=3.1.3
+   22  conda install matplotlib=3.0
+   23  python
+   24  deactivate
+   25  conda deactivate
+   26  conda remove --name pytorchgpu
+   27  conda remove --name=pytorchgpu --all
+   28  conda create --name pytorchgpu
+   29  conda init
+   30  exit
+   31  conda activate pytorchgpu
+   32  conda install matplotlib=3.0 --freeze-installed
+   33  python
+   34  conda deactivate
+   35  conda remove --name=pytorchgpu --all
+   36  conda create --name pytorchgpu
+   37  conda init
+   38  exit
+   39  conda activate pytorchgpu
+   40  pip install matplotlib
+   41  python
+   42  conda install ipykernel
+   43  pip install --user ipykernel
+   44  pip install jupyter
+   45  python -m ipykernel install --user --name=pytorchgpu
+   46  python
+   47  jupyter notebook --no-browser --ip=* --allow-root --port=8887
+   48  pip install jupyter
+   49  jupyter notebook --no-browser --ip=* --allow-root --port=8887
+   50  jupyter-notebook --no-browser --ip=* --allow-root --port=8887
+   51  exit
+   52  clear
+   53  conda activate pytorchgpu
+   54  python
+   55  pip install danspeech
+   56  git clone --recursive http://github.com/parlance/ctcdecode.git
+   57  cd ctcdecode/
+   58  pip install
+   59  pip install ctcdecode
+   60  pip install .
+   61  cd ..
+   62  pwd
+   63  ls
+   64  git clone https://github.com/SeanNaren/warp-ctc.git
+   65  cd warp-ctc/
+   66  mkdir build
+   67  cd build/
+   68  cmake ..
+   69  apt-get update
+   70  apt install -y libprotobuf-dev protobuf-compiler
+   71  cmake ..
+   72  apt install -y libc-bin
+   73  apt install -y libnvidia
+   74  apt install -y libfs
+   75  apt install -y cmake
+   76  apt install -y libprotobuf-dev protobuf-compiler
+   77  conda activate pytorchgpu
+   78  cd build/
+   79  ls
+   80  cd warp-ctc/
+   81  cd build/
+   82  cmake ..
+   83  pwd
+   84  cd ~
+   85  ls
+   86  dpkg nvcc
+   87  dpkg find nvcc
+   88  dpkg -nvcc
+   89  apt install nvidia-cuda-dev nvidia-cuda-toolkit
+   90  ls
+   91  pwd
+   92  python
+   93  cd /home/
+   94  ls
+   95  cd ../home2
+   96  ls
+   97  cd ..
+   98  cd workspace/
+   99  ls
+  100  cd warp-ctc/build/
+  101  cmake ..
+  102  make
+  103  export CUDA_HOME=/usr/local/cuda
+  104  cd ../pytorch_binding && python setup.py install
+  105  cd ../..
+  106  git clone --recursive https://github.com/NVIDIA/apex.git
+  107  cd apexcd
+  108  pip install .
+  109  git clone --recursive http://github.com/parlance/ctcdecode.gitcd ..
+  110  git clone --recursive http://github.com/parlance/ctcdecode.git
+  111  pwd
+  112  cd ..
+  113  git clone --recursive http://github.com/parlance/ctcdecode.git
+  114  pip install .
+  115  cd ..
+  116  python
+  117  tmux
+  118  apt-get install tmux
+  119  detach
+  120  exit
+  121  history
+  122  pwd
+  123  ls
+  124  mount
+  125  mount | grep data
+  126  history
