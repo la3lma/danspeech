@@ -150,7 +150,7 @@ How to reproduce:
 
 
 
-   I couldn't find any of the log files above, so I instead tried to start a version of the image and run the cmake command from the comand line. I then got this result:
+1.  I couldn't find any of the log files above, so I instead tried to start a version of the image and run the cmake command from the comand line. I then got this result:
 
 
 
@@ -184,8 +184,67 @@ How to reproduce:
        See also "/warp-ctc/build/CMakeFiles/CMakeError.log".
 
 
-   and now the content of the .log files is available (CMakeOutput.log):
+1. The content of CMakeError.log
 
+... and /warp-ctc/build/CMakeFiles/CMakeError.log:
+
+     Determining if the pthread_create exist failed with the following output:
+     Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
+
+     Run Build Command(s):/usr/bin/make cmTC_79844/fast 
+     /usr/bin/make -f CMakeFiles/cmTC_79844.dir/build.make CMakeFiles/cmTC_79844.dir/build
+     make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
+     Building C object CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o
+     /usr/bin/cc   -fPIC    -o CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o   -c /warp-ctc/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+     Linking C executable cmTC_79844
+     /opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_79844.dir/link.txt --verbose=1
+     /usr/bin/cc -fPIC     -rdynamic CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o  -o cmTC_79844 
+     CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o: In function `main':
+     CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+     collect2: error: ld returned 1 exit status
+     CMakeFiles/cmTC_79844.dir/build.make:86: recipe for target 'cmTC_79844' failed
+     make[1]: *** [cmTC_79844] Error 1
+     make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
+     Makefile:121: recipe for target 'cmTC_79844/fast' failed
+     make: *** [cmTC_79844/fast] Error 2
+
+     File /warp-ctc/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+     /* */
+     #include <pthread.h>
+
+     int main(int argc, char** argv)
+     {
+       (void)argv;
+     #ifndef pthread_create
+       return ((int*)(&pthread_create))[argc];
+     #else
+       (void)argc;
+       return 0;
+     #endif
+     }
+
+     Determining if the function pthread_create exists in the pthreads failed with the following output:
+     Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
+
+     Run Build Command(s):/usr/bin/make cmTC_2560f/fast 
+     /usr/bin/make -f CMakeFiles/cmTC_2560f.dir/build.make CMakeFiles/cmTC_2560f.dir/build
+     make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
+     Building C object CMakeFiles/cmTC_2560f.dir/CheckFunctionExists.c.o
+     /usr/bin/cc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_2560f.dir/CheckFunctionExists.c.o   -c /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CheckFunctionExists.c
+     Linking C executable cmTC_2560f
+     /opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2560f.dir/link.txt --verbose=1
+     /usr/bin/cc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_2560f.dir/CheckFunctionExists.c.o  -o cmTC_2560f -lpthreads 
+     /usr/bin/ld: cannot find -lpthreads
+     collect2: error: ld returned 1 exit status
+     CMakeFiles/cmTC_2560f.dir/build.make:86: recipe for target 'cmTC_2560f' failed
+     make[1]: *** [cmTC_2560f] Error 1
+     make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
+     Makefile:121: recipe for target 'cmTC_2560f/fast' failed
+     make: *** [cmTC_2560f/fast] Error 2
+
+
+
+1. The content of the  CMakeOutput.log:
 
 
        The system is: Linux - 4.15.0-96-generic - x86_64
@@ -1669,62 +1728,5 @@ How to reproduce:
            Feature record: CXX_FEATURE:0cxx_variable_templates
            Feature record: CXX_FEATURE:0cxx_variadic_macros
            Feature record: CXX_FEATURE:0cxx_variadic_templates
-
-
-... and /warp-ctc/build/CMakeFiles/CMakeError.log:
-
-     Determining if the pthread_create exist failed with the following output:
-     Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
-
-     Run Build Command(s):/usr/bin/make cmTC_79844/fast 
-     /usr/bin/make -f CMakeFiles/cmTC_79844.dir/build.make CMakeFiles/cmTC_79844.dir/build
-     make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
-     Building C object CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o
-     /usr/bin/cc   -fPIC    -o CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o   -c /warp-ctc/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-     Linking C executable cmTC_79844
-     /opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_79844.dir/link.txt --verbose=1
-     /usr/bin/cc -fPIC     -rdynamic CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o  -o cmTC_79844 
-     CMakeFiles/cmTC_79844.dir/CheckSymbolExists.c.o: In function `main':
-     CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
-     collect2: error: ld returned 1 exit status
-     CMakeFiles/cmTC_79844.dir/build.make:86: recipe for target 'cmTC_79844' failed
-     make[1]: *** [cmTC_79844] Error 1
-     make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
-     Makefile:121: recipe for target 'cmTC_79844/fast' failed
-     make: *** [cmTC_79844/fast] Error 2
-
-     File /warp-ctc/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
-     /* */
-     #include <pthread.h>
-
-     int main(int argc, char** argv)
-     {
-       (void)argv;
-     #ifndef pthread_create
-       return ((int*)(&pthread_create))[argc];
-     #else
-       (void)argc;
-       return 0;
-     #endif
-     }
-
-     Determining if the function pthread_create exists in the pthreads failed with the following output:
-     Change Dir: /warp-ctc/build/CMakeFiles/CMakeTmp
-
-     Run Build Command(s):/usr/bin/make cmTC_2560f/fast 
-     /usr/bin/make -f CMakeFiles/cmTC_2560f.dir/build.make CMakeFiles/cmTC_2560f.dir/build
-     make[1]: Entering directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
-     Building C object CMakeFiles/cmTC_2560f.dir/CheckFunctionExists.c.o
-     /usr/bin/cc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_2560f.dir/CheckFunctionExists.c.o   -c /opt/conda/envs/danspeech/share/cmake-3.14/Modules/CheckFunctionExists.c
-     Linking C executable cmTC_2560f
-     /opt/conda/envs/danspeech/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2560f.dir/link.txt --verbose=1
-     /usr/bin/cc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    -rdynamic CMakeFiles/cmTC_2560f.dir/CheckFunctionExists.c.o  -o cmTC_2560f -lpthreads 
-     /usr/bin/ld: cannot find -lpthreads
-     collect2: error: ld returned 1 exit status
-     CMakeFiles/cmTC_2560f.dir/build.make:86: recipe for target 'cmTC_2560f' failed
-     make[1]: *** [cmTC_2560f] Error 1
-     make[1]: Leaving directory '/warp-ctc/build/CMakeFiles/CMakeTmp'
-     Makefile:121: recipe for target 'cmTC_2560f/fast' failed
-     make: *** [cmTC_2560f/fast] Error 2
 
 
