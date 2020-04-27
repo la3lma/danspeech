@@ -150,8 +150,9 @@ How to reproduce:
 
 
 
-1.  I couldn't find any of the log files above, so I instead tried to start a version of the image and run the cmake command from the comand line. I then got this result:
-
+1.  I couldn't find any of the log files above, so I instead tried to
+    start a version of the image and run the cmake command from the comand
+    line. I then got this result:
 
 
        (base) root@d4c66736b301:/warp-ctc/build# cmake ../
@@ -245,7 +246,6 @@ How to reproduce:
 
 
 1. The content of the  CMakeOutput.log:
-
 
        The system is: Linux - 4.15.0-96-generic - x86_64
        Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
