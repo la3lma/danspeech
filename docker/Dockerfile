@@ -65,9 +65,10 @@ WORKDIR warp-ctc/build
 ######   debugging under way
 ###### 
 
-RUN Torch_DIR=/opt/conda/envs/danspeech/lib/python3.8/site-packages/torch/share/cmake/Torch/ cmake ../
+RUN Torch_DIR=/opt/conda/envs/danspeech/lib/python3.8/site-packages/torch/share/cmake/Torch/  cmake ../
 
-# XXX Commented out, since the next line will crash the build.
+# The next lines will crash the build
+RUN pwd
 RUN make
 
 # # Install CTC decode
