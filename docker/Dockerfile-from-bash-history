@@ -73,75 +73,55 @@ RUN CC=gcc-5 cmake ..
 RUN make
 
 
-# ##
-# ## Pytorch binding
-# ##
-# ENV  CUDA_HOME /usr/local/cuda
-# WORKDIR /workspace/warp-ctc/pytorch_binding
-# RUN python setup.py install
+##
+## Pytorch binding
+##
+ENV  CUDA_HOME /usr/local/cuda
+WORKDIR /workspace/warp-ctc/pytorch_binding
+RUN python setup.py install
 
 
-# ##
-# ##  Installing Apex
-# ##
-# WORKDIR /workplace
-# RUN  git clone --recursive https://github.com/NVIDIA/apex.git
-# WORKDIR /workplace/apex
-# RUN pip install . 
+##
+##  Installing Apex
+##
+WORKDIR /workspace
+RUN  git clone --recursive https://github.com/NVIDIA/apex.git
+WORKDIR /workplace/apex
+RUN pip install . 
 
 
-#   #danspeech training
-#   129  cd danspeech_training/
-#   132  conda deactivate
-#   133  conda env create -f env_train.yml
-#   136  apt-get install vim
-#   135  vim env_train.yml # comment out warp-ctc version requirement first. It'll be installed manualy later
-#   148  conda env create -f env_train.yml #here training environment of danspeech (based on OLDER version of everything) is created
-#   162  conda activate training
-#   #163  git clone https://github.com/SeanNaren/warp-ctc.git
-#   #169  cd warp-etc; mkdir build; cd build;
-#   181  apt-get install gcc-5
-#   207  CC=gcc-5 cmake ..
-#   210  make
-#   # now installation of python bindings:
-#   234  cd warp-ctc-pytorch/warpctc/core
-#   235  mkdir build
-#   236  cd build
-#   252  export Torch_DIR=/opt/conda/envs/training/lib/python3.6/site-packages/torch/share/cmake/Torch
-#   255  CC=gcc-5 cmake ..
-#   # it also needs explicit cpp compiler gcc-5 is not enough !!!
-#   270  apt-get install g++-5
-#   271  make
+##
+##  Installing danspeech training
+##
+WORKDIR /workplace
+RUN git clone https://github.com/danspeech/danspeech_training
+WORKDIR /workplace/danspeech_training
+RUN git clone https://github.com/SeanNaren/warp-ctc.git
+
+# Edit ut warp-ctc version requirement first. It'll be installed manualy later
+RUN  grep -v warp-ctc < env_train.yml > env_train.yml
+
+
+RUN  conda env create -n training -f env_train.yml
+# SHELL ["conda", "run", "-n", "training", "/bin/bash", "-c"]
+WORKDIR /workplace/danspeech_training/warp-ctc
+
+
+RUN  CC=gcc-5 cmake ..
+RUN  make
+
+##
+##  Warp-ctc for pytorch
+##
+
+## XXX Some parts are missing here!
+# WORKDIR /workplace/warp-ctc-pytorch/warpctc/core/build
+# ENV Torch_DIR /opt/conda/envs/training/lib/python3.6/site-packages/torch/share/cmake/Torch
+# RUN CC=gcc-5 cmake ..
+# RUN make
+
+
+
 #   # extendingpython path to includedanspeech  training directories
 #   #309  cd /opt/conda/envs/training/lib/python3.6/site-packages/
 #   #310  vim extend_path.pth
-  
-
-
-
-# # WORKDIR /warp-ctc/build
-# # RUN  cmake .. 
-# # RUN  make
-
-
-
-# # WORKDIR /
-# # RUN git clone --recursive http://github.com/parlance/ctcdecode.git
-# # WORKDIR /ctcdecode
-# # RUN pip install . 
-
-
-# # ENV CUDA_HOME=/usr/local/cuda
-# # 104  cd ../pytorch_binding && python setup.py install
-# # 105  cd ../..
-# # 106  git clone --recursive https://github.com/NVIDIA/apex.git
-# # 107  cd apexcd
-# # 108  pip install .
-# # 109  git clone --recursive http://github.com/parlance/ctcdecode.gitcd ..
-# # 110  git clone --recursive http://github.com/parlance/ctcdecode.git
-# # 111  pwd
-# # 112  cd ..
-# # 113  git clone --recursive http://github.com/parlance/ctcdecode.git
-# # 114  pip install .
-# # 115  cd ..
-
