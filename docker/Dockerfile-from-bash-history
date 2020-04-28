@@ -1,7 +1,7 @@
 # FROM pytorch/pytorch - petr
 
 # FROM pytorch/pytorch
-FROM calmzone/pytorch_cuda101
+FROM  calmzone/pytorch_cuda101
 
 # FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
 # From calmzone/pytorch_cuda101
@@ -13,7 +13,7 @@ FROM calmzone/pytorch_cuda101
 
 
 # RUN  rm -f rm /etc/apt/sources.list.d/cuda.list
-RUN apt-get  clean
+RUN apt-get clean
 RUN apt-get update -y
 RUN   apt-get  -y install git
 
