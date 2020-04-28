@@ -1,7 +1,9 @@
 # FROM pytorch/pytorch - petr
 
 # FROM pytorch/pytorch
-FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
+FROM calmzone/pytorch_cuda101
+
+# FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
 # From calmzone/pytorch_cuda101
 # 
 
@@ -20,7 +22,7 @@ RUN   apt-get  -y install git
 
 
 RUN apt-get install -y apt-utils
-RUN apt install -f
+# RUN apt install -f
 
 # dpkg: error processing archive /tmp/apt-dpkg-install-cpZZYd/221-nvidia-cuda-dev_9.1.85-3ubuntu1_amd64.deb (--unpack):
 # trying to overwrite '/usr/include/cublas.h', which is also in package libcublas-dev 10.2.1.243-1
@@ -32,76 +34,113 @@ RUN apt-get install -y nvidia-cuda-toolkit
 RUN  apt install -y libprotobuf-dev protobuf-compiler
 RUN  apt install -y libc-bin
 
-# The commands below will fetch cuda9 versions, which crashes with the already installed
-# cuda10.
-
+# These are probably not necessary
 # RUN  apt install -y libnvidia
 # RUN  apt install -y libfs
-RUN  apt install -y cmake
 
-RUN  apt install -y libprotobuf-dev protobuf-compiler
+RUN apt install -y cmake
 RUN apt install -y  tmux
 
 
-# RUN apt  install -y git libprotobuf-dev protobuf-compiler \
-#    libc-bin \
-#    libnvidia \ 
-#    libfs \
-#    cmake \
-#    nvidia-cuda-dev \
-#    nvidia-cuda-toolkit \
-#    tmux
+# RUN pip install matplotlib
+# RUN pip install jupyter
+# RUN pip install ipykernel
+# RUN pip install --user ipykernel
 
-# Maybe this?
-# RUN dpkg install nvcc
-
-
-## Can this be optimized somewhat?
-
-
-RUN  conda create --name pytorchgpu
-RUN  conda init bash
+# RUN conda create --name pytorchgpu
+# RUN conda init bash
 SHELL ["conda", "run", "-n", "pytorchgpu", "/bin/bash", "-c"]
 
-RUN   pip install matplotlib
+# Already exists in pytorch101
+# RUN   python -m ipykernel install --user --name=pytorchgpu
 
-# Probably only need one of these
-RUN   conda install ipykernel
-RUN   pip install --user ipykernel
-
-
-RUN   python -m ipykernel install --user --name=pytorchgpu
-RUN   pip install jupyter
-
-RUN   pip install danspeech
+# Can be put  on same line
+RUN pip install danspeech
+RUN pip install ctcdecode
 
 
-WORKDIR /
-RUN git clone https://github.com/SeanNaren/warp-ctc.git
+##
+## Installing warp-ctc
+##
 
-WORKDIR /warp-ctc/build
-RUN  cmake .. 
-RUN  make
+WORKDIR /workspace
+
+RUN  git clone https://github.com/SeanNaren/warp-ctc.git
+
+WORKDIR /workspace/warp-ctc/build
+RUN cmake ..
+RUN make
 
 
+##
+## Pytorch binding
+##
+ENV  CUDA_HOME /usr/local/cuda
+WORKDIR /workspace/warp-ctc/pytorch_binding
+RUN python setup.py install
 
-WORKDIR /
-RUN git clone --recursive http://github.com/parlance/ctcdecode.git
-WORKDIR /ctcdecode
+
+##
+##  Installing Apex
+##
+WORKDIR /workplace
+RUN  git clone --recursive https://github.com/NVIDIA/apex.git
+WORKDIR /workplace/apex
 RUN pip install . 
 
 
-ENV CUDA_HOME=/usr/local/cuda
-# 104  cd ../pytorch_binding && python setup.py install
-# 105  cd ../..
-# 106  git clone --recursive https://github.com/NVIDIA/apex.git
-# 107  cd apexcd
-# 108  pip install .
-# 109  git clone --recursive http://github.com/parlance/ctcdecode.gitcd ..
-# 110  git clone --recursive http://github.com/parlance/ctcdecode.git
-# 111  pwd
-# 112  cd ..
-# 113  git clone --recursive http://github.com/parlance/ctcdecode.git
-# 114  pip install .
-# 115  cd ..
+#   #danspeech training
+#   129  cd danspeech_training/
+#   132  conda deactivate
+#   133  conda env create -f env_train.yml
+#   136  apt-get install vim
+#   135  vim env_train.yml # comment out warp-ctc version requirement first. It'll be installed manualy later
+#   148  conda env create -f env_train.yml #here training environment of danspeech (based on OLDER version of everything) is created
+#   162  conda activate training
+#   #163  git clone https://github.com/SeanNaren/warp-ctc.git
+#   #169  cd warp-etc; mkdir build; cd build;
+#   181  apt-get install gcc-5
+#   207  CC=gcc-5 cmake ..
+#   210  make
+#   # now installation of python bindings:
+#   234  cd warp-ctc-pytorch/warpctc/core
+#   235  mkdir build
+#   236  cd build
+#   252  export Torch_DIR=/opt/conda/envs/training/lib/python3.6/site-packages/torch/share/cmake/Torch
+#   255  CC=gcc-5 cmake ..
+#   # it also needs explicit cpp compiler gcc-5 is not enough !!!
+#   270  apt-get install g++-5
+#   271  make
+#   # extendingpython path to includedanspeech  training directories
+#   #309  cd /opt/conda/envs/training/lib/python3.6/site-packages/
+#   #310  vim extend_path.pth
+  
+
+
+
+# # WORKDIR /warp-ctc/build
+# # RUN  cmake .. 
+# # RUN  make
+
+
+
+# # WORKDIR /
+# # RUN git clone --recursive http://github.com/parlance/ctcdecode.git
+# # WORKDIR /ctcdecode
+# # RUN pip install . 
+
+
+# # ENV CUDA_HOME=/usr/local/cuda
+# # 104  cd ../pytorch_binding && python setup.py install
+# # 105  cd ../..
+# # 106  git clone --recursive https://github.com/NVIDIA/apex.git
+# # 107  cd apexcd
+# # 108  pip install .
+# # 109  git clone --recursive http://github.com/parlance/ctcdecode.gitcd ..
+# # 110  git clone --recursive http://github.com/parlance/ctcdecode.git
+# # 111  pwd
+# # 112  cd ..
+# # 113  git clone --recursive http://github.com/parlance/ctcdecode.git
+# # 114  pip install .
+# # 115  cd ..
 
