@@ -5,8 +5,8 @@
 #                                                                                                                                                        
 
 WHOAMI=$(whoami)
-CONTAINERNAME=danspeech-cuda10.1
+CONTAINERNAME=danspeech-p-cuda10.1
 TAGNAME="$WHOAMI/$CONTAINERNAME"
 
 
-docker build --file="Dockerfile" --tag "$TAGNAME" .
+docker build --file="Dockerfile-from-bash-history" --tag "$TAGNAME" .

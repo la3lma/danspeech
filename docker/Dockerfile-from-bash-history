@@ -1,0 +1,105 @@
+FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
+# From calmzone/pytorch_cuda101
+# 
+
+# To fix the nvidia thing, look in https://askubuntu.com/questions/1132090/i-am-not-able-to-install-anything-in-ubuntu
+
+#  ... an alternative fix here
+
+
+
+# RUN  rm -f rm /etc/apt/sources.list.d/cuda.list
+RUN apt-get  clean
+RUN apt-get update -y
+# RUN apt-get install -y software-properties-common
+# RUN add-apt-repository -r "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
+
+
+RUN apt-get install -y apt-utils
+RUN apt install -f
+
+# dpkg: error processing archive /tmp/apt-dpkg-install-cpZZYd/221-nvidia-cuda-dev_9.1.85-3ubuntu1_amd64.deb (--unpack):
+# trying to overwrite '/usr/include/cublas.h', which is also in package libcublas-dev 10.2.1.243-1
+
+
+# RUN apt-get install -y nvidia-cuda-dev
+# RUN apt-get install -y nvidia-cuda-toolkit
+
+RUN  apt install -y libprotobuf-dev protobuf-compiler
+RUN  apt install -y libc-bin
+
+# The commands below will fetch cuda9 versions, which crashes with the already installed
+# cuda10.
+
+# RUN  apt install -y libnvidia
+# RUN  apt install -y libfs
+RUN  apt install -y cmake
+
+RUN  apt install -y libprotobuf-dev protobuf-compiler
+RUN apt install -y  tmux
+
+
+# RUN apt  install -y git libprotobuf-dev protobuf-compiler \
+#    libc-bin \
+#    libnvidia \ 
+#    libfs \
+#    cmake \
+#    nvidia-cuda-dev \
+#    nvidia-cuda-toolkit \
+#    tmux
+
+# Maybe this?
+# RUN dpkg install nvcc
+
+
+## Can this be optimized somewhat?
+
+
+RUN  conda create --name pytorchgpu
+RUN  conda init bash
+SHELL ["conda", "run", "-n", "pytorchgpu", "/bin/bash", "-c"]
+
+RUN   pip install matplotlib
+
+# Probably only need one of these
+RUN   conda install ipykernel
+RUN   pip install --user ipykernel
+
+
+RUN   python -m ipykernel install --user --name=pytorchgpu
+RUN   pip install jupyter
+
+RUN   pip install danspeech
+
+# TODO: Move this towards the top
+RUN   apt-get  -y install git
+
+WORKDIR /
+RUN git clone --recursive http://github.com/parlance/ctcdecode.git
+WORKDIR /ctcdecode
+RUN pip install . 
+
+
+WORKDIR /
+RUN git clone https://github.com/SeanNaren/warp-ctc.git
+
+WORKDIR /warp-ctc/build
+RUN  cmake .. 
+RUN  make
+
+
+
+# 103  export CUDA_HOME=/usr/local/cuda
+# 104  cd ../pytorch_binding && python setup.py install
+# 105  cd ../..
+# 106  git clone --recursive https://github.com/NVIDIA/apex.git
+# 107  cd apexcd
+# 108  pip install .
+# 109  git clone --recursive http://github.com/parlance/ctcdecode.gitcd ..
+# 110  git clone --recursive http://github.com/parlance/ctcdecode.git
+# 111  pwd
+# 112  cd ..
+# 113  git clone --recursive http://github.com/parlance/ctcdecode.git
+# 114  pip install .
+# 115  cd ..
+
