@@ -1,3 +1,6 @@
+# FROM pytorch/pytorch - petr
+
+# FROM pytorch/pytorch
 FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
 # From calmzone/pytorch_cuda101
 # 
@@ -7,10 +10,11 @@ FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
 #  ... an alternative fix here
 
 
-
 # RUN  rm -f rm /etc/apt/sources.list.d/cuda.list
 RUN apt-get  clean
 RUN apt-get update -y
+RUN   apt-get  -y install git
+
 # RUN apt-get install -y software-properties-common
 # RUN add-apt-repository -r "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
 
@@ -22,8 +26,8 @@ RUN apt install -f
 # trying to overwrite '/usr/include/cublas.h', which is also in package libcublas-dev 10.2.1.243-1
 
 
-# RUN apt-get install -y nvidia-cuda-dev
-# RUN apt-get install -y nvidia-cuda-toolkit
+RUN apt-get install -y nvidia-cuda-dev
+RUN apt-get install -y nvidia-cuda-toolkit
 
 RUN  apt install -y libprotobuf-dev protobuf-compiler
 RUN  apt install -y libc-bin
@@ -71,14 +75,6 @@ RUN   pip install jupyter
 
 RUN   pip install danspeech
 
-# TODO: Move this towards the top
-RUN   apt-get  -y install git
-
-WORKDIR /
-RUN git clone --recursive http://github.com/parlance/ctcdecode.git
-WORKDIR /ctcdecode
-RUN pip install . 
-
 
 WORKDIR /
 RUN git clone https://github.com/SeanNaren/warp-ctc.git
@@ -89,7 +85,13 @@ RUN  make
 
 
 
-# 103  export CUDA_HOME=/usr/local/cuda
+WORKDIR /
+RUN git clone --recursive http://github.com/parlance/ctcdecode.git
+WORKDIR /ctcdecode
+RUN pip install . 
+
+
+ENV CUDA_HOME=/usr/local/cuda
 # 104  cd ../pytorch_binding && python setup.py install
 # 105  cd ../..
 # 106  git clone --recursive https://github.com/NVIDIA/apex.git
