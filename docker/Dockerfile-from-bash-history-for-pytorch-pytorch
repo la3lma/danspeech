@@ -1,55 +1,37 @@
 FROM pytorch/pytorch
 
+## This is the version we probably want to get to, but that crashes
+## in interesting ways, so we'll use pytorch/pytorch as an intermediary.
+
 # FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
+
+## This is the working version we're starting from (without knowing what the Dockerfile is)
 # From calmzone/pytorch_cuda101
-# 
 
-# To fix the nvidia thing, look in https://askubuntu.com/questions/1132090/i-am-not-able-to-install-anything-in-ubuntu
+######################################################################
+# Getting dependencies into the linux system
 
-#  ... an alternative fix here
-
-
-# RUN  rm -f rm /etc/apt/sources.list.d/cuda.list
 RUN apt-get  clean
 RUN apt-get update -y
-RUN   apt-get  -y install git
+RUN apt-get  -y install git
 
 RUN apt-get install -y apt-utils
 RUN apt-get install -y nvidia-cuda-dev
 RUN apt-get install -y nvidia-cuda-toolkit
 
-RUN  apt install -y libprotobuf-dev protobuf-compiler
-RUN  apt install -y libc-bin
-
-# These are probably not necessary
-# RUN  apt install -y libnvidia
-# RUN  apt install -y libfs
+RUN apt install -y libprotobuf-dev protobuf-compiler
+RUN apt install -y libc-bin
 
 RUN apt install -y cmake
 RUN apt install -y tmux
 RUN apt install -y gcc-5
 RUN apt install -y g++-5
 
-# RUN pip install matplotlib
-# RUN pip install jupyter
-# RUN pip install ipykernel
-# RUN pip install --user ipykernel
 
 
-
-# Already exists in pytorch101
-
-
-# RUN apt-get update -y
-# RUN apt-get install -y apt-utils
-# RUN apt install -y git tmux
-# FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
-# RUN apt install -y libprotobuf-dev protobuf-compiler
-# RUN apt-get install -y nvidia-cuda-toolkit
-# RUN apt-get install -y nvidia-cuda-dev
-# RUN apt-get install -y cmake
-# RUN apt-get install -y gcc-5 g++-5
-
+######################################################################
+# Getting dependencies into the python system, and setting up the
+# conda workspace (but not activating yet)
 
 ##
 ## Installing a set of python components known to work in the legacy
@@ -66,6 +48,10 @@ RUN pip install -r requirements.txt
 
 RUN python -m ipykernel install --user --name=pytorchgpu
 RUN conda create --name pytorchgpu
+
+
+######################################################################
+# Installing the misc speech recognitioni subsystems
 
 
 ##
@@ -93,6 +79,7 @@ RUN grep -v warpctc env_train.ymlcp > env_train.yml
 RUN rm env_train.ymlcp
 RUN conda env create -n training -f env_train.yml
 
+# Activating use of the "training" conda environment
 SHELL ["conda", "run", "-n", "training", "/bin/bash", "-c"]
 
 WORKDIR /workspace
@@ -114,10 +101,6 @@ ENV  CUDA_HOME /usr/local/cuda
 WORKDIR /workspace/danspeech_training/warp-ctc/pytorch_binding
 RUN python setup.py install
 
-#WORKDIR /workspace/warp-ctc/warp-ctc-pytorch/warpctc/core/build
-#RUN export Torch_DIR=/opt/conda/envs/training/lib/python3.6/site-packages/torch/share/cmake/Torch
-#RUN CC=gcc-5 cmake ..
-#RUN make
 
 ##
 ##  Installing Apex
@@ -135,6 +118,7 @@ RUN echo "/workspace/danspeech_training/" >> /opt/conda/envs/training/lib/python
 ########################### pytorchgpu environment
 ##
 
+# Activating use of the pytorchgpu conda environment
 SHELL ["conda", "run", "-n", "pytorchgpu", "/bin/bash", "-c"]
 
 WORKDIR /workspace
@@ -157,7 +141,7 @@ WORKDIR /workspace/warp-ctc/pytorch_binding
 RUN python setup.py install
 
 ##
-##  Installing Apex
+##  Installing Apex (again? why?)
 ##
 WORKDIR /workspace
 #RUN  git clone --recursive https://github.com/NVIDIA/apex.git
