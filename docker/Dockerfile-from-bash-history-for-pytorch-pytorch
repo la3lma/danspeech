@@ -37,6 +37,7 @@ RUN  apt install -y libc-bin
 
 RUN apt install -y cmake
 RUN apt install -y  tmux
+RUN apt-get install -y gcc-5 g++-5
 
 
 RUN pip install matplotlib
@@ -44,12 +45,12 @@ RUN pip install jupyter
 RUN pip install ipykernel
 RUN pip install --user ipykernel
 
-# RUN conda create --name pytorchgpu
+RUN conda create --name pytorchgpu
 # RUN conda init bash
 SHELL ["conda", "run", "-n", "pytorchgpu", "/bin/bash", "-c"]
 
 # Already exists in pytorch101
-# RUN   python -m ipykernel install --user --name=pytorchgpu
+RUN   python -m ipykernel install --user --name=pytorchgpu
 
 # Can be put  on same line
 RUN pip install danspeech
@@ -65,7 +66,6 @@ WORKDIR /workspace
 RUN  git clone https://github.com/SeanNaren/warp-ctc.git
 
 WORKDIR /workspace/warp-ctc/build
-RUN apt-get install -y gcc-5 g++-5
 RUN CC=gcc-5 cmake ..
 RUN make
 
