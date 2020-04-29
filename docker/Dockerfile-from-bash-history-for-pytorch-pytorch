@@ -51,7 +51,7 @@ RUN conda create --name pytorchgpu
 
 
 ######################################################################
-# Installing the misc speech recognitioni subsystems
+# Installing the misc speech recognition subsystems
 
 
 ##
