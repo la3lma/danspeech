@@ -64,10 +64,8 @@ COPY pytorch_cuda101_requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 
-RUN   python -m ipykernel install --user --name=pytorchgpu
+RUN python -m ipykernel install --user --name=pytorchgpu
 RUN conda create --name pytorchgpu
-
-
 
 
 ##
