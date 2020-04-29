@@ -24,9 +24,9 @@ RUN apt install -y libc-bin
 
 RUN apt install -y cmake
 RUN apt install -y tmux
+RUN apt install -y gcc
 RUN apt install -y gcc-5
 RUN apt install -y g++-5
-
 
 
 ######################################################################
@@ -62,7 +62,7 @@ WORKDIR /workspace
 RUN  git clone https://github.com/SeanNaren/warp-ctc.git
 WORKDIR /workspace/warp-ctc/build
 
-RUN CC=gcc-5 cmake ..
+RUN CC=gcc-5 CXX=/usr/bin/gcc-5 cmake ..
 RUN make
 
 ##
