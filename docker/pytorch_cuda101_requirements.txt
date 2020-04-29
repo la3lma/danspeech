@@ -6,6 +6,7 @@ bleach==3.1.4
 certifi==2019.11.28
 cffi==1.13.0
 chardet==3.0.4
+# We're hoping that the conda we get from pytorch/pytorch is sufficient. Probably is.
 # conda==4.8.1
 # conda-build==3.18.11
 # conda-package-handling==1.6.0
@@ -62,12 +63,14 @@ pyrsistent==0.16.0
 PySocks==1.7.1
 python-dateutil==2.8.1
 pytz==2019.3
-PyYAML==5.2
+# This version gives us grief.  See if we can do without it.
+# PyYAML==5.2
 pyzmq==19.0.0
 qtconsole==4.7.2
 QtPy==1.9.0
 requests==2.22.0
-ruamel-yaml==0.15.46
+# This one also gives us grief
+# ruamel-yaml==0.15.46
 Send2Trash==1.5.0
 six==1.12.0
 soupsieve==1.9.5

@@ -37,8 +37,6 @@ RUN apt install -y g++-5
 
 
 
-
-
 # Already exists in pytorch101
 
 
@@ -54,14 +52,16 @@ RUN apt install -y g++-5
 
 
 ##
-## Installing a set of python components known to work
+## Installing a set of python components known to work in the legacy
+## pytorch_cuda101 image.
 ##
 
-WORKDIR /workspace 
-COPY old-requirements.txt requirements.txt
+WORKDIR /workspace
+# Do this, since it's so slow When the whole requirements.txt thing works, remove
+# the RUN PIP pre copy
+RUN pip install torch==1.4.0
+COPY pytorch_cuda101_requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-
-
 
 
 RUN   python -m ipykernel install --user --name=pytorchgpu
