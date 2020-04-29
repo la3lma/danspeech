@@ -1,0 +1,430 @@
+Sending build context to Docker daemon  169.5kB
+Step 1/59 : FROM  calmzone/pytorch_cuda101
+ ---> e2c9f74ec0e8
+Step 2/59 : RUN apt-get update -y
+ ---> Using cache
+ ---> 878dcdc88cdb
+Step 3/59 : RUN apt-get install -y apt-utils
+ ---> Using cache
+ ---> 420105dfaba4
+Step 4/59 : RUN apt install -y git tmux
+ ---> Using cache
+ ---> 43281b2f78a3
+Step 5/59 : RUN apt install -y libprotobuf-dev protobuf-compiler
+ ---> Using cache
+ ---> 585b4704383d
+Step 6/59 : RUN apt-get install -y nvidia-cuda-toolkit
+ ---> Using cache
+ ---> 5e0e8e3e7bdc
+Step 7/59 : RUN apt-get install -y nvidia-cuda-dev
+ ---> Using cache
+ ---> 8821afc74dac
+Step 8/59 : RUN apt-get install -y cmake
+ ---> Using cache
+ ---> 390fabb897b8
+Step 9/59 : RUN apt-get install -y gcc-5 g++-5
+ ---> Using cache
+ ---> ced18664b6b9
+Step 10/59 : WORKDIR /workspace
+ ---> Using cache
+ ---> b2cb0e7edd87
+Step 11/59 : RUN  git clone https://github.com/SeanNaren/warp-ctc.git
+ ---> Using cache
+ ---> aea7b9e82df5
+Step 12/59 : WORKDIR /workspace/warp-ctc/build
+ ---> Using cache
+ ---> aea0b0b86e7f
+Step 13/59 : RUN  CC=gcc-5 cmake ..
+ ---> Using cache
+ ---> 16ed4309dda2
+Step 14/59 : RUN  make
+ ---> Using cache
+ ---> 0e70ab640cb9
+Step 15/59 : WORKDIR /workspace
+ ---> Using cache
+ ---> f6c062f4230e
+Step 16/59 : RUN git clone https://github.com/danspeech/danspeech_training
+ ---> Using cache
+ ---> 3b7b86948a94
+Step 17/59 : WORKDIR /workspace/danspeech_training
+ ---> Using cache
+ ---> a3e4810d792b
+Step 18/59 : RUN cp env_train.yml env_train.ymlcp
+ ---> Using cache
+ ---> 9a3615881e6f
+Step 19/59 : RUN grep -v warpctc env_train.ymlcp > env_train.yml
+ ---> Using cache
+ ---> b86abaf70add
+Step 20/59 : RUN rm env_train.ymlcp
+ ---> Using cache
+ ---> 86653c67683e
+Step 21/59 : RUN conda env create -n training -f env_train.yml
+ ---> Using cache
+ ---> 23574f5acd62
+Step 22/59 : SHELL ["conda", "run", "-n", "training", "/bin/bash", "-c"]
+ ---> Using cache
+ ---> 85407cdb96d0
+Step 23/59 : WORKDIR /workspace
+ ---> Using cache
+ ---> 1dfe9e91794e
+Step 24/59 : RUN pip install danspeech
+ ---> Using cache
+ ---> 02e4be6e0176
+Step 25/59 : RUN git clone --recursive http://github.com/parlance/ctcdecode.git
+ ---> Using cache
+ ---> 87a3beb354fc
+Step 26/59 : WORKDIR /workspace/ctcdecode/
+ ---> Using cache
+ ---> 2d97281b9613
+Step 27/59 : RUN pip install .
+ ---> Using cache
+ ---> f9d592edf951
+Step 28/59 : WORKDIR /workspace/danspeech_training
+ ---> Using cache
+ ---> 0daa3690edab
+Step 29/59 : RUN git clone https://github.com/SeanNaren/warp-ctc.git
+ ---> Using cache
+ ---> d2833429368f
+Step 30/59 : WORKDIR /workspace/danspeech_training/warp-ctc/build
+ ---> Using cache
+ ---> ac3901427545
+Step 31/59 : RUN CC=gcc-5 cmake ..
+ ---> Using cache
+ ---> a1ce1c439fdc
+Step 32/59 : RUN make
+ ---> Using cache
+ ---> fbc6f71f4a3f
+Step 33/59 : ENV  CUDA_HOME /usr/local/cuda
+ ---> Running in 8045ec6169c9
+Removing intermediate container 8045ec6169c9
+ ---> 30d2f43861cc
+Step 34/59 : WORKDIR /workspace/danspeech_training/warp-ctc/pytorch_binding
+ ---> Running in 429db8bec384
+Removing intermediate container 429db8bec384
+ ---> 5d158596d594
+Step 35/59 : RUN python setup.py install
+ ---> Running in 1961d2fc08b9
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+running install
+running bdist_egg
+running egg_info
+creating warpctc_pytorch.egg-info
+writing warpctc_pytorch.egg-info/PKG-INFO
+writing dependency_links to warpctc_pytorch.egg-info/dependency_links.txt
+writing top-level names to warpctc_pytorch.egg-info/top_level.txt
+writing manifest file 'warpctc_pytorch.egg-info/SOURCES.txt'
+reading manifest file 'warpctc_pytorch.egg-info/SOURCES.txt'
+writing manifest file 'warpctc_pytorch.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-x86_64/egg
+running install_lib
+running build_py
+creating build
+creating build/lib.linux-x86_64-3.6
+creating build/lib.linux-x86_64-3.6/warpctc_pytorch
+copying warpctc_pytorch/__init__.py -> build/lib.linux-x86_64-3.6/warpctc_pytorch
+running build_ext
+building 'warpctc_pytorch._warp_ctc' extension
+creating build/temp.linux-x86_64-3.6
+creating build/temp.linux-x86_64-3.6/src
+gcc -pthread -B /opt/conda/envs/training/compiler_compat -Wl,--sysroot=/ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/workspace/danspeech_training/warp-ctc/include -I/opt/conda/envs/training/lib/python3.6/site-packages/torch/include -I/opt/conda/envs/training/lib/python3.6/site-packages/torch/include/torch/csrc/api/include -I/opt/conda/envs/training/lib/python3.6/site-packages/torch/include/TH -I/opt/conda/envs/training/lib/python3.6/site-packages/torch/include/THC -I/usr/local/cuda/include -I/opt/conda/envs/training/include/python3.6m -c src/binding.cpp -o build/temp.linux-x86_64-3.6/src/binding.o -std=c++11 -fPIC -DWARPCTC_ENABLE_GPU -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_warp_ctc -D_GLIBCXX_USE_CXX11_ABI=0
+g++ -pthread -shared -B /opt/conda/envs/training/compiler_compat -L/opt/conda/envs/training/lib -Wl,-rpath=/opt/conda/envs/training/lib -Wl,--no-as-needed -Wl,--sysroot=/ build/temp.linux-x86_64-3.6/src/binding.o -L/workspace/danspeech_training/warp-ctc/build -L/usr/local/cuda/lib64 -lwarpctc -lcudart -o build/lib.linux-x86_64-3.6/warpctc_pytorch/_warp_ctc.cpython-36m-x86_64-linux-gnu.so -Wl,-rpath,/workspace/danspeech_training/warp-ctc/build
+creating build/bdist.linux-x86_64
+creating build/bdist.linux-x86_64/egg
+creating build/bdist.linux-x86_64/egg/warpctc_pytorch
+copying build/lib.linux-x86_64-3.6/warpctc_pytorch/__init__.py -> build/bdist.linux-x86_64/egg/warpctc_pytorch
+copying build/lib.linux-x86_64-3.6/warpctc_pytorch/_warp_ctc.cpython-36m-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/egg/warpctc_pytorch
+byte-compiling build/bdist.linux-x86_64/egg/warpctc_pytorch/__init__.py to __init__.cpython-36.pyc
+creating stub loader for warpctc_pytorch/_warp_ctc.cpython-36m-x86_64-linux-gnu.so
+byte-compiling build/bdist.linux-x86_64/egg/warpctc_pytorch/_warp_ctc.py to _warp_ctc.cpython-36.pyc
+creating build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+writing build/bdist.linux-x86_64/egg/EGG-INFO/native_libs.txt
+creating dist
+creating 'dist/warpctc_pytorch-0.1-py3.6-linux-x86_64.egg' and adding 'build/bdist.linux-x86_64/egg' to it
+removing 'build/bdist.linux-x86_64/egg' (and everything under it)
+Processing warpctc_pytorch-0.1-py3.6-linux-x86_64.egg
+creating /opt/conda/envs/training/lib/python3.6/site-packages/warpctc_pytorch-0.1-py3.6-linux-x86_64.egg
+Extracting warpctc_pytorch-0.1-py3.6-linux-x86_64.egg to /opt/conda/envs/training/lib/python3.6/site-packages
+Adding warpctc-pytorch 0.1 to easy-install.pth file
+
+Installed /opt/conda/envs/training/lib/python3.6/site-packages/warpctc_pytorch-0.1-py3.6-linux-x86_64.egg
+Processing dependencies for warpctc-pytorch==0.1
+Finished processing dependencies for warpctc-pytorch==0.1
+
+cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++
+zip_safe flag not set; analyzing archive contents...
+warpctc_pytorch.__pycache__._warp_ctc.cpython-36: module references __file__
+
+Removing intermediate container 1961d2fc08b9
+ ---> 3b8b8d2b0395
+Step 36/59 : WORKDIR /workspace
+ ---> Running in dc2db0e43fe9
+Removing intermediate container dc2db0e43fe9
+ ---> 5186264a21fe
+Step 37/59 : RUN  git clone --recursive https://github.com/NVIDIA/apex.git
+ ---> Running in ecc3692b906b
+Submodule path 'apex/contrib/csrc/multihead_attn/cutlass': checked out 'ed2ed4d667ce95e1371bd62db32b6a114e774336'
+Submodule path 'apex/contrib/csrc/multihead_attn/cutlass/tools/external/googletest': checked out '9077ec7efe5b652468ab051e93c67589d5cb8f85'
+
+Cloning into 'apex'...
+Submodule 'apex/contrib/csrc/multihead_attn/cutlass' (https://github.com/NVIDIA/cutlass.git) registered for path 'apex/contrib/csrc/multihead_attn/cutlass'
+Cloning into '/workspace/apex/apex/contrib/csrc/multihead_attn/cutlass'...
+Submodule 'tools/external/googletest' (https://github.com/google/googletest.git) registered for path 'apex/contrib/csrc/multihead_attn/cutlass/tools/external/googletest'
+Cloning into '/workspace/apex/apex/contrib/csrc/multihead_attn/cutlass/tools/external/googletest'...
+
+Removing intermediate container ecc3692b906b
+ ---> 685a948d59b2
+Step 38/59 : WORKDIR /workspace/apex
+ ---> Running in a11964058c0c
+Removing intermediate container a11964058c0c
+ ---> b51c76d0cb3e
+Step 39/59 : RUN pip install .
+ ---> Running in 2dee4b561f8f
+Processing /workspace/apex
+Building wheels for collected packages: apex
+  Building wheel for apex (setup.py): started
+  Building wheel for apex (setup.py): finished with status 'done'
+  Created wheel for apex: filename=apex-0.1-py3-none-any.whl size=157193 sha256=6f6479fc7393c187024fb38c449d63bb67ceee5004185b3b3309ec807dba01b9
+  Stored in directory: /tmp/pip-ephem-wheel-cache-ptrra45x/wheels/59/c8/c5/69c83ae69af5b099217e34b302d3ac2103d8b6039f6d80e6f0
+Successfully built apex
+Installing collected packages: apex
+Successfully installed apex-0.1
+
+Removing intermediate container 2dee4b561f8f
+ ---> f76bb91885da
+Step 40/59 : RUN echo "/workspace/danspeech_training/warp-ctc/pytorch_binding/" > /opt/conda/envs/training/lib/python3.6/site-packages/extend_path.pth
+ ---> Running in 915063432aff
+Removing intermediate container 915063432aff
+ ---> cd4b015181fb
+Step 41/59 : RUN echo "/workspace/danspeech_training/" >> /opt/conda/envs/training/lib/python3.6/site-packages/extend_path.pth
+ ---> Running in da03a9b6abdf
+Removing intermediate container da03a9b6abdf
+ ---> a2d989b0358c
+Step 42/59 : SHELL ["conda", "run", "-n", "pytorchgpu", "/bin/bash", "-c"]
+ ---> Running in f46b05fc7b39
+Removing intermediate container f46b05fc7b39
+ ---> fdbe38259fc5
+Step 43/59 : WORKDIR /workspace
+ ---> Running in e38360eff33e
+Removing intermediate container e38360eff33e
+ ---> b9907aa52e4a
+Step 44/59 : RUN pip install danspeech
+ ---> Running in e6a7885a2ff4
+Collecting danspeech
+  Using cached https://files.pythonhosted.org/packages/1c/e7/a21cd525f1fa74552ed0c4cf187cc1cc86984dbbe5b1ec760fb50f52a789/danspeech-1.0.3.tar.gz
+Requirement already satisfied: numpy in /opt/conda/lib/python3.7/site-packages (from danspeech) (1.17.4)
+Collecting scipy
+  Downloading https://files.pythonhosted.org/packages/dd/82/c1fe128f3526b128cfd185580ba40d01371c5d299fcf7f77968e22dfcc2e/scipy-1.4.1-cp37-cp37m-manylinux1_x86_64.whl (26.1MB)
+Collecting python-Levenshtein
+  Using cached https://files.pythonhosted.org/packages/42/a9/d1785c85ebf9b7dfacd08938dd028209c34a0ea3b1bcdb895208bd40a67d/python-Levenshtein-0.12.0.tar.gz
+Collecting wget
+  Using cached https://files.pythonhosted.org/packages/47/6a/62e288da7bcda82b935ff0c6cfe542970f04e29c756b0e147251b2fb251f/wget-3.2.zip
+Requirement already satisfied: torch in /opt/conda/lib/python3.7/site-packages (from danspeech) (1.4.0)
+Requirement already satisfied: six in /opt/conda/lib/python3.7/site-packages (from danspeech) (1.12.0)
+Collecting librosa
+  Using cached https://files.pythonhosted.org/packages/77/b5/1817862d64a7c231afd15419d8418ae1f000742cac275e85c74b219cbccb/librosa-0.7.2.tar.gz
+Requirement already satisfied: setuptools in /opt/conda/lib/python3.7/site-packages (from python-Levenshtein->danspeech) (41.4.0)
+Collecting audioread>=2.0.0
+  Using cached https://files.pythonhosted.org/packages/2e/0b/940ea7861e0e9049f09dcfd72a90c9ae55f697c17c299a323f0148f913d2/audioread-2.1.8.tar.gz
+Collecting scikit-learn!=0.19.0,>=0.14.0
+  Downloading https://files.pythonhosted.org/packages/41/b6/126263db075fbcc79107749f906ec1c7639f69d2d017807c6574792e517e/scikit_learn-0.22.2.post1-cp37-cp37m-manylinux1_x86_64.whl (7.1MB)
+Collecting joblib>=0.12
+  Using cached https://files.pythonhosted.org/packages/28/5c/cf6a2b65a321c4a209efcdf64c2689efae2cb62661f8f6f4bb28547cf1bf/joblib-0.14.1-py2.py3-none-any.whl
+Requirement already satisfied: decorator>=3.0.0 in /opt/conda/lib/python3.7/site-packages (from librosa->danspeech) (4.4.1)
+Collecting resampy>=0.2.2
+  Using cached https://files.pythonhosted.org/packages/79/75/e22272b9c2185fc8f3af6ce37229708b45e8b855fd4bc38b4d6b040fff65/resampy-0.2.2.tar.gz
+Collecting numba>=0.43.0
+  Downloading https://files.pythonhosted.org/packages/e0/ed/456c92a28f04e6910c2ab5deac3a74038115d38f074617bd9052bf318468/numba-0.49.0-cp37-cp37m-manylinux2014_x86_64.whl (3.6MB)
+Collecting soundfile>=0.9.0
+  Using cached https://files.pythonhosted.org/packages/eb/f2/3cbbbf3b96fb9fa91582c438b574cff3f45b29c772f94c400e2c99ef5db9/SoundFile-0.10.3.post1-py2.py3-none-any.whl
+Collecting llvmlite<=0.33.0.dev0,>=0.31.0.dev0
+  Downloading https://files.pythonhosted.org/packages/98/83/788c4bfd9b883dbb97788d054593e3c6e89dcacf9240b062c576370552bc/llvmlite-0.32.0-cp37-cp37m-manylinux1_x86_64.whl (20.2MB)
+Requirement already satisfied: cffi>=1.0 in /opt/conda/lib/python3.7/site-packages (from soundfile>=0.9.0->librosa->danspeech) (1.13.0)
+Requirement already satisfied: pycparser in /opt/conda/lib/python3.7/site-packages (from cffi>=1.0->soundfile>=0.9.0->librosa->danspeech) (2.19)
+Building wheels for collected packages: danspeech, python-Levenshtein, wget, librosa, audioread, resampy
+  Building wheel for danspeech (setup.py): started
+  Building wheel for danspeech (setup.py): finished with status 'done'
+  Created wheel for danspeech: filename=danspeech-1.0.3-cp37-none-any.whl size=46446 sha256=4546913527715b0aa962a46300265b075641b748fc145668123464e9fd2665f3
+  Stored in directory: /root/.cache/pip/wheels/71/d5/9e/fdd6a73a3e4e666fca21ad9ba1f0f9ba043b251af5f2ff14d5
+  Building wheel for python-Levenshtein (setup.py): started
+  Building wheel for python-Levenshtein (setup.py): finished with status 'done'
+  Created wheel for python-Levenshtein: filename=python_Levenshtein-0.12.0-cp37-cp37m-linux_x86_64.whl size=167736 sha256=fc312900db1021838139fc0dcc5d8243040e3043b620dba72d72e2e53f62e4b3
+  Stored in directory: /root/.cache/pip/wheels/de/c2/93/660fd5f7559049268ad2dc6d81c4e39e9e36518766eaf7e342
+  Building wheel for wget (setup.py): started
+  Building wheel for wget (setup.py): finished with status 'done'
+  Created wheel for wget: filename=wget-3.2-cp37-none-any.whl size=9680 sha256=feab2f2acb312086fd3b667dcd2a17f6d02ec19a1e8f3095251cc94d829e0bc8
+  Stored in directory: /root/.cache/pip/wheels/40/15/30/7d8f7cea2902b4db79e3fea550d7d7b85ecb27ef992b618f3f
+  Building wheel for librosa (setup.py): started
+  Building wheel for librosa (setup.py): finished with status 'done'
+  Created wheel for librosa: filename=librosa-0.7.2-cp37-none-any.whl size=1612884 sha256=8abcb8cfc4189d89568873b573b11b44c990ce87dac3d4f3e422e1c3b9c7982d
+  Stored in directory: /root/.cache/pip/wheels/4c/6e/d7/bb93911540d2d1e44d690a1561871e5b6af82b69e80938abef
+  Building wheel for audioread (setup.py): started
+  Building wheel for audioread (setup.py): finished with status 'done'
+  Created wheel for audioread: filename=audioread-2.1.8-cp37-none-any.whl size=23093 sha256=421461375471b7aee023bea02a43ec50820b6e0672b3038da3de57605e7aea91
+  Stored in directory: /root/.cache/pip/wheels/b9/64/09/0b6417df9d8ba8bc61a7d2553c5cebd714ec169644c88fc012
+  Building wheel for resampy (setup.py): started
+  Building wheel for resampy (setup.py): finished with status 'done'
+  Created wheel for resampy: filename=resampy-0.2.2-cp37-none-any.whl size=320719 sha256=23f4f9c60f10ad909775282d1d1fd7421d9e60fed220e0a6ba1a55a01d6859af
+  Stored in directory: /root/.cache/pip/wheels/fa/c1/56/e0e12c6f7f3d2cdea9712b35136a2d40a7817c6210ec096485
+Successfully built danspeech python-Levenshtein wget librosa audioread resampy
+Installing collected packages: scipy, python-Levenshtein, wget, audioread, joblib, scikit-learn, llvmlite, numba, resampy, soundfile, librosa, danspeech
+Successfully installed audioread-2.1.8 danspeech-1.0.3 joblib-0.14.1 librosa-0.7.2 llvmlite-0.32.0 numba-0.49.0 python-Levenshtein-0.12.0 resampy-0.2.2 scikit-learn-0.22.2.post1 scipy-1.4.1 soundfile-0.10.3.post1 wget-3.2
+
+Removing intermediate container e6a7885a2ff4
+ ---> ef73af3366d4
+Step 45/59 : RUN git clone --recursive http://github.com/parlance/ctcdecode.git
+ ---> Running in 61e449af277b
+ERROR conda.cli.main_run:execute(30): Subprocess for 'conda run ['/bin/bash', '-c', 'git clone --recursive http://github.com/parlance/ctcdecode.git']' command failed.  (See above for error)
+fatal: destination path 'ctcdecode' already exists and is not an empty directory.
+
+Removing intermediate container 61e449af277b
+ ---> ffe9357d1cb4
+Step 46/59 : WORKDIR /workspace/ctcdecode/
+ ---> Running in fab053783878
+Removing intermediate container fab053783878
+ ---> c5c41f271f9c
+Step 47/59 : RUN pip install .
+ ---> Running in 2033857097e8
+Processing /workspace/ctcdecode
+Building wheels for collected packages: ctcdecode
+  Building wheel for ctcdecode (setup.py): started
+  Building wheel for ctcdecode (setup.py): still running...
+  Building wheel for ctcdecode (setup.py): finished with status 'done'
+  Created wheel for ctcdecode: filename=ctcdecode-0.4-cp37-cp37m-linux_x86_64.whl size=12241311 sha256=1a9df4103f6d2736f4e7915ff56a7eca6bf17148d6377f94c9a68e94290a8d8f
+  Stored in directory: /tmp/pip-ephem-wheel-cache-elgxrg7j/wheels/19/c0/f0/d32b6e5cdb49eb0c086813645230c68870333c112d08ac4bbf
+Successfully built ctcdecode
+Installing collected packages: ctcdecode
+Successfully installed ctcdecode-0.4
+
+Removing intermediate container 2033857097e8
+ ---> 74d5afbcf81e
+Step 48/59 : WORKDIR /workspace
+ ---> Running in a56ebd65ef22
+Removing intermediate container a56ebd65ef22
+ ---> 70db6a41a53e
+Step 49/59 : WORKDIR /workspace/warp-ctc/build
+ ---> Running in 59963279091f
+Removing intermediate container 59963279091f
+ ---> 902a13e217ad
+Step 50/59 : RUN cmake ..
+ ---> Running in 3071aa7dbda2
+-- cuda found TRUE
+-- Building shared library with GPU support
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/warp-ctc/build
+
+Removing intermediate container 3071aa7dbda2
+ ---> f373dd03f016
+Step 51/59 : RUN make
+ ---> Running in 2eff706f7307
+[ 11%] Linking CXX shared library libwarpctc.so
+[ 33%] Built target warpctc
+[ 44%] Linking CXX executable test_cpu
+[ 66%] Built target test_cpu
+[ 77%] Linking CXX executable test_gpu
+[100%] Built target test_gpu
+
+Removing intermediate container 2eff706f7307
+ ---> 3911a4562d7f
+Step 52/59 : ENV  CUDA_HOME /usr/local/cuda
+ ---> Running in f1d58adeaa22
+Removing intermediate container f1d58adeaa22
+ ---> 22b3cbcde6ac
+Step 53/59 : WORKDIR /workspace/warp-ctc/pytorch_binding
+ ---> Running in 3d11998a9f13
+Removing intermediate container 3d11998a9f13
+ ---> 376edb13263a
+Step 54/59 : RUN python setup.py install
+ ---> Running in 215ce36ebb80
+No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'
+running install
+running bdist_egg
+running egg_info
+creating warpctc_pytorch.egg-info
+writing warpctc_pytorch.egg-info/PKG-INFO
+writing dependency_links to warpctc_pytorch.egg-info/dependency_links.txt
+writing top-level names to warpctc_pytorch.egg-info/top_level.txt
+writing manifest file 'warpctc_pytorch.egg-info/SOURCES.txt'
+reading manifest file 'warpctc_pytorch.egg-info/SOURCES.txt'
+writing manifest file 'warpctc_pytorch.egg-info/SOURCES.txt'
+installing library code to build/bdist.linux-x86_64/egg
+running install_lib
+running build_py
+creating build
+creating build/lib.linux-x86_64-3.7
+creating build/lib.linux-x86_64-3.7/warpctc_pytorch
+copying warpctc_pytorch/__init__.py -> build/lib.linux-x86_64-3.7/warpctc_pytorch
+running build_ext
+building 'warpctc_pytorch._warp_ctc' extension
+creating build/temp.linux-x86_64-3.7
+creating build/temp.linux-x86_64-3.7/src
+gcc -pthread -B /opt/conda/compiler_compat -Wl,--sysroot=/ -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes -fPIC -I/workspace/warp-ctc/include -I/opt/conda/lib/python3.7/site-packages/torch/include -I/opt/conda/lib/python3.7/site-packages/torch/include/torch/csrc/api/include -I/opt/conda/lib/python3.7/site-packages/torch/include/TH -I/opt/conda/lib/python3.7/site-packages/torch/include/THC -I/usr/local/cuda/include -I/opt/conda/include/python3.7m -c src/binding.cpp -o build/temp.linux-x86_64-3.7/src/binding.o -std=c++11 -fPIC -DWARPCTC_ENABLE_GPU -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=_warp_ctc -D_GLIBCXX_USE_CXX11_ABI=0
+g++ -pthread -shared -B /opt/conda/compiler_compat -L/opt/conda/lib -Wl,-rpath=/opt/conda/lib -Wl,--no-as-needed -Wl,--sysroot=/ build/temp.linux-x86_64-3.7/src/binding.o -L/workspace/warp-ctc/build -L/usr/local/cuda/lib64 -lwarpctc -lcudart -o build/lib.linux-x86_64-3.7/warpctc_pytorch/_warp_ctc.cpython-37m-x86_64-linux-gnu.so -Wl,-rpath,/workspace/warp-ctc/build
+creating build/bdist.linux-x86_64
+creating build/bdist.linux-x86_64/egg
+creating build/bdist.linux-x86_64/egg/warpctc_pytorch
+copying build/lib.linux-x86_64-3.7/warpctc_pytorch/_warp_ctc.cpython-37m-x86_64-linux-gnu.so -> build/bdist.linux-x86_64/egg/warpctc_pytorch
+copying build/lib.linux-x86_64-3.7/warpctc_pytorch/__init__.py -> build/bdist.linux-x86_64/egg/warpctc_pytorch
+byte-compiling build/bdist.linux-x86_64/egg/warpctc_pytorch/__init__.py to __init__.cpython-37.pyc
+creating stub loader for warpctc_pytorch/_warp_ctc.cpython-37m-x86_64-linux-gnu.so
+byte-compiling build/bdist.linux-x86_64/egg/warpctc_pytorch/_warp_ctc.py to _warp_ctc.cpython-37.pyc
+creating build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/PKG-INFO -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/SOURCES.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/dependency_links.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+copying warpctc_pytorch.egg-info/top_level.txt -> build/bdist.linux-x86_64/egg/EGG-INFO
+writing build/bdist.linux-x86_64/egg/EGG-INFO/native_libs.txt
+creating dist
+creating 'dist/warpctc_pytorch-0.1-py3.7-linux-x86_64.egg' and adding 'build/bdist.linux-x86_64/egg' to it
+removing 'build/bdist.linux-x86_64/egg' (and everything under it)
+Processing warpctc_pytorch-0.1-py3.7-linux-x86_64.egg
+creating /opt/conda/lib/python3.7/site-packages/warpctc_pytorch-0.1-py3.7-linux-x86_64.egg
+Extracting warpctc_pytorch-0.1-py3.7-linux-x86_64.egg to /opt/conda/lib/python3.7/site-packages
+Adding warpctc-pytorch 0.1 to easy-install.pth file
+
+Installed /opt/conda/lib/python3.7/site-packages/warpctc_pytorch-0.1-py3.7-linux-x86_64.egg
+Processing dependencies for warpctc-pytorch==0.1
+Finished processing dependencies for warpctc-pytorch==0.1
+
+cc1plus: warning: command line option ‘-Wstrict-prototypes’ is valid for C/ObjC but not for C++
+zip_safe flag not set; analyzing archive contents...
+warpctc_pytorch.__pycache__._warp_ctc.cpython-37: module references __file__
+
+Removing intermediate container 215ce36ebb80
+ ---> f0efd975f801
+Step 55/59 : WORKDIR /workspace
+ ---> Running in 11eecac4e013
+Removing intermediate container 11eecac4e013
+ ---> d6e7183598d7
+Step 56/59 : WORKDIR /workspace/apex
+ ---> Running in 38eedfafb5d5
+Removing intermediate container 38eedfafb5d5
+ ---> 538eecb4b842
+Step 57/59 : RUN pip install .
+ ---> Running in 426501d09017
+Processing /workspace/apex
+Building wheels for collected packages: apex
+  Building wheel for apex (setup.py): started
+  Building wheel for apex (setup.py): finished with status 'done'
+  Created wheel for apex: filename=apex-0.1-cp37-none-any.whl size=157194 sha256=e4a7ad060f6df4c10f22cbe7bf9c175378f2cd3d13e5d8c27342ea72cde4b04e
+  Stored in directory: /tmp/pip-ephem-wheel-cache-7xpttugf/wheels/c1/6b/aa/c38e8fe7e96c07e75e4047b2a55476f2d8867760a610b66ffc
+Successfully built apex
+Installing collected packages: apex
+Successfully installed apex-0.1
+
+Removing intermediate container 426501d09017
+ ---> 9eac78ae8e0a
+Step 58/59 : RUN echo "/workspace/warp-ctc/pytorch_binding/" > /opt/conda/lib/python3.7/site-packages/extend_path.pth
+ ---> Running in 93e1304edff5
+Removing intermediate container 93e1304edff5
+ ---> 10216dd81411
+Step 59/59 : RUN echo "/workspace/" >> /opt/conda/lib/python3.7/site-packages/extend_path.pth
+ ---> Running in a3c868fa4cc6
+Removing intermediate container a3c868fa4cc6
+ ---> 9eeb614364eb
+Successfully built 9eeb614364eb
+Successfully tagged petr/pytorch_cuda101:dsfromdockerf

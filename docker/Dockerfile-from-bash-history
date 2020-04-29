@@ -1,47 +1,8 @@
 # FROM pytorch/pytorch - petr
 
 # FROM pytorch/pytorch
-FROM  calmzone/pytorch_cuda101
-
-# FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
-# From calmzone/pytorch_cuda101
-# 
-
-# To fix the nvidia thing, look in https://askubuntu.com/questions/1132090/i-am-not-able-to-install-anything-in-ubuntu
-
-#  ... an alternative fix here
-
-
-# RUN  rm -f rm /etc/apt/sources.list.d/cuda.list
-RUN apt-get clean
-RUN apt-get update -y
-RUN   apt-get  -y install git
-
-# RUN apt-get install -y software-properties-common
-# RUN add-apt-repository -r "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
-
-
-RUN apt-get install -y apt-utils
-# RUN apt install -f
-
-# dpkg: error processing archive /tmp/apt-dpkg-install-cpZZYd/221-nvidia-cuda-dev_9.1.85-3ubuntu1_amd64.deb (--unpack):
-# trying to overwrite '/usr/include/cublas.h', which is also in package libcublas-dev 10.2.1.243-1
-
-
-RUN apt-get install -y nvidia-cuda-dev
-RUN apt-get install -y nvidia-cuda-toolkit
-
-RUN  apt install -y libprotobuf-dev protobuf-compiler
-RUN  apt install -y libc-bin
-
-# These are probably not necessary
-# RUN  apt install -y libnvidia
-# RUN  apt install -y libfs
-
-RUN apt install -y cmake
-RUN apt install -y  tmux
-
-
+#
+# following are of general use and should be installed before new conda environments are defiend:
 # RUN pip install matplotlib
 # RUN pip install jupyter
 # RUN pip install ipykernel
@@ -49,79 +10,119 @@ RUN apt install -y  tmux
 
 # RUN conda create --name pytorchgpu
 # RUN conda init bash
-SHELL ["conda", "run", "-n", "pytorchgpu", "/bin/bash", "-c"]
 
-# Already exists in pytorch101
-# RUN   python -m ipykernel install --user --name=pytorchgpu
+FROM  calmzone/pytorch_cuda101
 
-# Can be put  on same line
-RUN pip install danspeech
-RUN pip install ctcdecode
+RUN apt-get update -y
+RUN apt-get install -y apt-utils
+RUN apt install -y git tmux
+# FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
+RUN apt install -y libprotobuf-dev protobuf-compiler
+RUN apt-get install -y nvidia-cuda-toolkit
+RUN apt-get install -y nvidia-cuda-dev
 
+#RUN apt install -y libc-bin 
+RUN apt-get install -y cmake
+
+RUN apt-get install -y gcc-5 g++-5
 
 ##
 ## Installing warp-ctc
 ##
 
 WORKDIR /workspace
-
 RUN  git clone https://github.com/SeanNaren/warp-ctc.git
-
 WORKDIR /workspace/warp-ctc/build
-RUN apt-get install -y gcc-5 g++-5
-RUN CC=gcc-5 cmake ..
-RUN make
+RUN  CC=gcc-5 cmake ..
+RUN  make
 
+##
+##  Installing danspeech training
+##
+
+WORKDIR /workspace
+RUN git clone https://github.com/danspeech/danspeech_training
+WORKDIR /workspace/danspeech_training
+
+# Edit ut warp-ctc version requirement since it's been already installed manualy
+RUN cp env_train.yml env_train.ymlcp
+RUN grep -v warpctc env_train.ymlcp > env_train.yml
+RUN rm env_train.ymlcp
+RUN conda env create -n training -f env_train.yml
+
+SHELL ["conda", "run", "-n", "training", "/bin/bash", "-c"]
+
+WORKDIR /workspace
+RUN pip install danspeech
+RUN git clone --recursive http://github.com/parlance/ctcdecode.git
+WORKDIR /workspace/ctcdecode/
+RUN pip install .
 
 ##
 ## Pytorch binding
 ##
+WORKDIR /workspace/danspeech_training
+RUN git clone https://github.com/SeanNaren/warp-ctc.git
+WORKDIR /workspace/danspeech_training/warp-ctc/build
+RUN CC=gcc-5 cmake ..
+RUN make
+
 ENV  CUDA_HOME /usr/local/cuda
-WORKDIR /workspace/warp-ctc/pytorch_binding
+WORKDIR /workspace/danspeech_training/warp-ctc/pytorch_binding
 RUN python setup.py install
 
+#WORKDIR /workspace/warp-ctc/warp-ctc-pytorch/warpctc/core/build
+#RUN export Torch_DIR=/opt/conda/envs/training/lib/python3.6/site-packages/torch/share/cmake/Torch
+#RUN CC=gcc-5 cmake ..
+#RUN make
 
 ##
 ##  Installing Apex
 ##
 WORKDIR /workspace
 RUN  git clone --recursive https://github.com/NVIDIA/apex.git
-WORKDIR /workplace/apex
+WORKDIR /workspace/apex
 RUN pip install . 
 
+# extendingpython path to includedanspeech  training directories
+RUN echo "/workspace/danspeech_training/warp-ctc/pytorch_binding/" > /opt/conda/envs/training/lib/python3.6/site-packages/extend_path.pth
+RUN echo "/workspace/danspeech_training/" >> /opt/conda/envs/training/lib/python3.6/site-packages/extend_path.pth
 
 ##
-##  Installing danspeech training
-##
-WORKDIR /workplace
-RUN git clone https://github.com/danspeech/danspeech_training
-WORKDIR /workplace/danspeech_training
-RUN git clone https://github.com/SeanNaren/warp-ctc.git
-
-# Edit ut warp-ctc version requirement first. It'll be installed manualy later
-RUN  grep -v warp-ctc < env_train.yml > env_train.yml
-
-
-RUN  conda env create -n training -f env_train.yml
-# SHELL ["conda", "run", "-n", "training", "/bin/bash", "-c"]
-WORKDIR /workplace/danspeech_training/warp-ctc
-
-
-RUN  CC=gcc-5 cmake ..
-RUN  make
-
-##
-##  Warp-ctc for pytorch
+########################### pytorchgpu environment
 ##
 
-## XXX Some parts are missing here!
-# WORKDIR /workplace/warp-ctc-pytorch/warpctc/core/build
-# ENV Torch_DIR /opt/conda/envs/training/lib/python3.6/site-packages/torch/share/cmake/Torch
-# RUN CC=gcc-5 cmake ..
-# RUN make
+SHELL ["conda", "run", "-n", "pytorchgpu", "/bin/bash", "-c"]
+
+WORKDIR /workspace
+RUN pip install danspeech
+RUN git clone --recursive http://github.com/parlance/ctcdecode.git
+WORKDIR /workspace/ctcdecode/
+RUN pip install .
+
+##
+## Pytorch binding
+##
+WORKDIR /workspace
+#RUN git clone https://github.com/SeanNaren/warp-ctc.git
+WORKDIR /workspace/warp-ctc/build
+RUN cmake ..
+RUN make
+
+ENV  CUDA_HOME /usr/local/cuda
+WORKDIR /workspace/warp-ctc/pytorch_binding
+RUN python setup.py install
+
+##
+##  Installing Apex
+##
+WORKDIR /workspace
+#RUN  git clone --recursive https://github.com/NVIDIA/apex.git
+WORKDIR /workspace/apex
+RUN pip install . 
+
+# extendingpython path to includedanspeech  training directories
+RUN echo "/workspace/warp-ctc/pytorch_binding/" > /opt/conda/lib/python3.7/site-packages/extend_path.pth
+RUN echo "/workspace/" >> /opt/conda/lib/python3.7/site-packages/extend_path.pth
 
 
-
-#   # extendingpython path to includedanspeech  training directories
-#   #309  cd /opt/conda/envs/training/lib/python3.6/site-packages/
-#   #310  vim extend_path.pth
