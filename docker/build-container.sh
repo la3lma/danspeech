@@ -5,7 +5,7 @@
 #                                                                                                                                                        
 
 WHOAMI=$(whoami)
-CONTAINERNAME=danspeech-p-cuda10.1
+CONTAINERNAME=pytorch_cuda101:dsfromdockerf
 TAGNAME="$WHOAMI/$CONTAINERNAME"
 
 
