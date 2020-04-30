@@ -6,6 +6,12 @@ RUN apt-get update -y
 RUN apt-get  -y install git
 
 
+RUN pip install danspeech
+RUN pip install django
 
-RUN https://github.com/danspeech/danspeechdemo
+WORKDIR /workingdir
+RUN git clone https://github.com/danspeech/danspeechdemo
+WORKDIR /workingdir/danspeechdemo
+RUN pip install .
+
 
