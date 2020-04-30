@@ -13,9 +13,8 @@ RUN apt-get -y  install python
 
 RUN apt-get install -y libasound-dev portaudio19-dev libportaudio2
 RUN apt-get install -y libsndfile1
+RUN apt-get install -y ffmpeg
 RUN pip3 install PyAudio
-
-
 
 RUN pip3 install torch==1.4
 RUN pip3 install danspeech
@@ -37,10 +36,10 @@ WORKDIR /workspace/danspeechdemo/danspeechdemo
 RUN sed -i 's/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \["127\.0\.0\.1", "0\.0\.0\.0", "localhost"\]/g' settings.py
 RUN python3 manage.py  migrate
 
-WORKDIR /workspace/danspeechdemo/danspeechdemo
+WORKDIR /workspace/danspeechdemo
 
 
-CMD python3 manage.py runserver 0.0.0.0:8000
+CMD python3 danspeechdemo/manage.py runserver 0.0.0.0:8000
 # COPY server_wrapper.py /workspace/danspeechdemo
 # CMD  /workspace/danspeechdemo/server_wrapper.py
 
