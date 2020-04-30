@@ -37,5 +37,7 @@ RUN python3 manage.py migrate
 WORKDIR /workspace/danspeechdemo
 
 COPY server_wrapper.py /workspace/danspeechdemo
+
+
 CMD  /workspace/danspeechdemo/server_wrapper.py
 
