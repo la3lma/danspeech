@@ -1,21 +1,40 @@
-FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
+# FROM pytorch/pytorch:1.5-cuda10.1-cudnn7-devel
+FROM ubuntu:18.04
 
+EXPOSE 8000/tcp
 
 RUN apt-get  clean
 RUN apt-get update -y
 RUN apt-get  -y install git
+RUN apt-get -y install apt-utils
+RUN apt-get install -y emacs
+RUN apt  install -y python3-pip
+RUN apt-get -y  install python
+
+RUN apt-get install -y libasound-dev portaudio19-dev libportaudio2
+RUN apt-get install libsndfile1
+RUN pip3 install PyAudio
 
 
-RUN pip install danspeech
-RUN pip install django
+
+RUN pip3 install torch==1.4
+RUN pip3 install danspeech
+RUN pip3 install django
+RUN pip3 install numba==0.48.0
+
+WORKDIR /workspace
+RUN git clone --recursive https://github.com/parlance/ctcdecode.git
+WORKDIR /workspace/ctcdecode
+RUN apt-get install -y ninja-build
+RUN pip3 install .
 
 WORKDIR /workspace
 RUN git clone https://github.com/danspeech/danspeechdemo
 WORKDIR /workspace/danspeechdemo
-RUN pip install .
+RUN pip3 install .
+RUN python3 manage.py migrate
 
-WORKDIR /workspace
 
-COPY server_wrapper.py /workspace
-# CMD  /workingdir/server_wrapper.py
+COPY server_wrapper.py /workspace/danspeechdemo
+CMD  /workspace/danspeechdemo/server_wrapper.py
 
