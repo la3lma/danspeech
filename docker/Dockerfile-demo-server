@@ -9,9 +9,13 @@ RUN apt-get  -y install git
 RUN pip install danspeech
 RUN pip install django
 
-WORKDIR /workingdir
+WORKDIR /workspace
 RUN git clone https://github.com/danspeech/danspeechdemo
-WORKDIR /workingdir/danspeechdemo
+WORKDIR /workspace/danspeechdemo
 RUN pip install .
 
+WORKDIR /workspace
+
+COPY server_wrapper.py /workspace
+# CMD  /workingdir/server_wrapper.py
 
