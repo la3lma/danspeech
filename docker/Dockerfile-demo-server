@@ -38,8 +38,12 @@ RUN python3 manage.py  migrate
 
 WORKDIR /workspace/danspeechdemo/danspeechdemo/tmp
 WORKDIR /workspace/danspeechdemo
+RUN apt-get install -y curl
 
-
+# Run a single fetch of the main page to trigger download of
+# model files.
+COPY prime_danspeech_server.sh /workspace/danspeechdemo/
+RUN ./prime_danspeech_server.sh
 CMD python3 danspeechdemo/manage.py runserver 0.0.0.0:8000
 # COPY server_wrapper.py /workspace/danspeechdemo
 # CMD  /workspace/danspeechdemo/server_wrapper.py
